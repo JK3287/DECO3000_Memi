@@ -1,5 +1,5 @@
 # Veronikah's pathname: '/Users/vmcclelland/Desktop/Less Stupid Uni Stuff/Third Year Sem 2/Designing Intelligent Systems/memi/memi_main.py'
-# Justin's pathname: '/Users/yungvenuz/Documents/Uni/Year 3 DC/DECO3000/memi/memi_main.py'
+# Justin's pathname: '/Users/yungvenuz/Documents/Uni/Year 3 DC/DECO3000/DECO3000_Memi/memi_main.py'
 
 # importsd
 import spacy_streamlit
