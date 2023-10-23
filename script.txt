@@ -1,0 +1,16 @@
+* MEMI by Veronikah McClelland and Justin Kwon - Scripts *
+
+Don't write full sentences and don't rely too much on the script plz
+
+- Demo Script: Scope -
+. What is our problem?
+. What are we trying to do?
+. What does the AI have to do with our problem?
+
+- Demo Script: Structure -
+. What are the sources of data?
+. How is our data processed?
+. What models are involved?
+
+- Demo Script: Function -
+. We should focus on the hardest part of the app.
