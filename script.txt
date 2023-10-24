@@ -1,16 +1,89 @@
-* MEMI by Veronikah McClelland and Justin Kwon - Scripts *
+* MEMI by Veronikah McClelland and Justin Kwon - Demo * (Commercial Script IN LINE 40)
 
-Don't write full sentences and don't rely too much on the script plz
-
+VERONIKAH MCCLELLAND
 - Demo Script: Scope -
-. What is our problem?
-. What are we trying to do?
-. What does the AI have to do with our problem?
+. Problem area - Lonely elderly people who have memory issues
+. Australia’s elderly population is increasing due to its high life expectancy age
+. One-fifth of people aged over 55 have mental health issues
+. We are trying to help them create new bonds and positive experiences through reminisence therapy
+. AI conversation allows us to help each user with more accessible and personalised experiences
 
-- Demo Script: Structure -
-. What are the sources of data?
-. How is our data processed?
-. What models are involved?
+- Demo Script: Sources -
+. What are the sources of data? 
+    - Common Crawl (ChatGPT)
+    - ISEAR and WASSA
+
+. How is our data processed? 
+    - Input from user through chat
+    - Data is interpreted by ChatGPT by having it predict the best response to the input using reminiscence therapy focused rules
+    - An output is given to the user that helps continue the conversation
+    - Through this constant conversation, keywords are generated from Spacy, which are used to catagorise the session
+    - These keywords are then compared with other user's keywords from their own sessions, and if sessions have similar keywords,
+      users are recommended to each other to bond through similar experiences
+
+JUSTIN KWON
+- Demo Script: Models -
+. What models are involved? (At least 5)
+    - Streamlit for website design: although app is expected to not be fully functional, 
+      Streamlit finds quick ways to help with layout
+    - ChatGPT (LLM) for Chatbot: A Large Language Model is required to take words as input and information or advice as output
+    - gTTS for Speaking: Google Text-to-Speech Module helps narrate what the chatbot is saying
+    - Spacy (NLP) for Keyword Analysis: Natural Language Processing helps translate emotions to computers, providing empathy
+    - LangChain for Summarisation: Langchain is a program that simplifies the creation of applications made by LLMs
 
 - Demo Script: Function -
-. We should focus on the hardest part of the app.
+. Three pages: TALK, CONNECT and FRIENDS
+. As of now, TALK is the only page
+. CONNECT should help find other users through means of searching with keywords found from NLP
+. Finally FRIENDS are made through CONNECT and users should see them whenever they want
+
+* MEMI by Veronikah McClelland and Justin Kwon - Commercial *
+
+Concept:
+
+1) our idea and why it is valuable
+
+  Idea
+  - Memi is an AI reminiscence therapy app for elderly people with loneliness
+  - Uses a chatbot to create discussions between users and Memi to foster positive thinking
+  - Find others through Memi and also chat with them to bond over similar experiences
+
+  Value
+  - Accessible therapy
+    .cheap
+    .can be used any time
+    .personalised
+
+  - Strengthen episodic memory
+  - Restore sense of identity
+  - Non-intrusive and uplifting
+    .helps against current stigmas of therapy
+
+2) demonstration of current proto
+
+  - Talk (Single only)
+  - Connect
+  - Friends
+  - Chat Log
+  - Settings
+
+3) roadmap
+
+  - Find a way to connect users together through chat
+  - Voice recognition for users to say their thoughts
+  - Focus on more ethical considerations for Memi to work well
+  - Server to hold all user's data (chat log and bios)
+  - Advertising campaign to get Memi recognised in the market
+  - Accessibility on all types of devices, (eg. phone, tablet)
+
+. 2D and Motion graphics
+. If needed, animatic style
+
+. Hospital staff/old people are busy in a nursing home, leaving Gertrude on her own
+. Gertrude uses her phone to go to MEMI
+* NARRATOR: "MEMI helps old people like Gertrude feel less lonely through strengthening
+episodic memory and restoring a sense of identity through an accessible, non-intrusive and personalised manner."
+. Gertrude has a chat with the therapist through TALK
+* NARRATOR: "MEMI's TALK feature acts as a reminiscence therapist, and essentially pursues positive memories 
+from users."
+
