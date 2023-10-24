@@ -30,8 +30,9 @@ JUSTIN KWON
     to the human language
     - Google's Text-To-Speech API was used to generate auditory responses, as if the chatbot were to talk to users who could hear
     - Spacy as a Natural Language Processing Library was used to tokenise keywords from a user's conversation with the
-    chatbot
-    - LangChain for Summarisation: Langchain is a program that simplifies the creation of applications made by LLMs
+    chatbot to help categorise conversations and help them meet like-minded people
+    - LangChain was used in order to enhance the capabilities of ChatGPT, in regard to simplifying information, to summarise
+     conversations
 
 - Demo Script: Function -
 . Three pages: TALK, CONNECT and FRIENDS
