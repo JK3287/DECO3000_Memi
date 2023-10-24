@@ -23,12 +23,14 @@ VERONIKAH MCCLELLAND
 
 JUSTIN KWON
 - Demo Script: Models -
-. What models are involved? (At least 5)
-    - Streamlit for website design: although app is expected to not be fully functional, 
-      Streamlit finds quick ways to help with layout
-    - ChatGPT (LLM) for Chatbot: A Large Language Model is required to take words as input and information or advice as output
-    - gTTS for Speaking: Google Text-to-Speech Module helps narrate what the chatbot is saying
-    - Spacy (NLP) for Keyword Analysis: Natural Language Processing helps translate emotions to computers, providing empathy
+. The main page right now is TALK, involving a chatbot made from at least 5 sources
+    - Streamlit was used for its ability to rapidly prototype a web application without the need to write for HTML, CSS or 
+    Javascript, saving time
+    - ChatGPT as a Large Language Model was used to comprehend text as input and generate responses in a manner similar
+    to the human language
+    - Google's Text-To-Speech API was used to generate auditory responses, as if the chatbot were to talk to users who could hear
+    - Spacy as a Natural Language Processing Library was used to tokenise keywords from a user's conversation with the
+    chatbot
     - LangChain for Summarisation: Langchain is a program that simplifies the creation of applications made by LLMs
 
 - Demo Script: Function -
