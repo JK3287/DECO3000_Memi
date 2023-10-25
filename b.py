@@ -1,30 +1,18 @@
-# Veronikah's pathname: streamlit run '/Users/vmcclelland/Desktop/Less Stupid Uni Stuff/Third Year Sem 2/Designing Intelligent Systems/memi/memi_main.py'
-# Justin's pathname: streamlit run '/Users/yungvenuz/Documents/Uni/Year 3 DC/DECO3000/DECO3000_Memi/memi_main.py'
-
-# importsd
+# streamlit run '/Users/yungvenuz/Documents/Uni/Year 3 DC/DECO3000/DECO3000_Memi/b.py'
+# imports
 import spacy_streamlit
 import spacy
-
-# spacy download en_core_web_sm
 nlp = spacy.load("en_core_web_sm")
-
 from streamlit_option_menu import option_menu
+from audio_recorder_streamlit import audio_recorder
 import openai
 import os
-
 from dotenv import load_dotenv
-
 import streamlit as st
 from streamlit_option_menu import option_menu
 from streamlit_chat import message
-
-# pip install gtts
 from gtts import gTTS
-
-# pip install io
 from io import BytesIO
-
-# OpenAI
 from langchain import OpenAI
 from langchain.docstore.document import Document
 from langchain.text_splitter import CharacterTextSplitter
@@ -61,7 +49,7 @@ with st.sidebar:
 if selected == "TALK":
     # Header
     st.header("TALK")
-    st.subheader("Feel free to talk an AI chatbot, who will provide you with reminiscence therapy.")
+    st.subheader("Feel free to talk to an AI chatbot, who will provide you with reminiscence therapy.")
 
     # Storing GPT-3.5 responses for easy retrieval to show on Chatbot UI in Streamlit session
     if 'prompted' not in st.session_state:
@@ -122,11 +110,34 @@ if selected == "TALK":
 
     # Input function
     def get_text():
-        input_text = st.text_input("You: ","I am feeling...", key="input")
-        return input_text 
-    
+        input_option = st.radio("Choose input method:", ("Text", "Record Voice"))
+
+        if input_option == "Text":
+            input_text = st.text_input("You: ", "I am feeling...", key="input")
+        else:
+            # Record audio using audio_recorder
+            st.info("Click the 'Record' button to start recording your voice.")
+            audio_bytes = audio_recorder()
+
+            if audio_bytes:
+                st.success("Audio recording successful!")
+
+                # Save the recorded audio to a file
+                with open("recorded_audio.wav", "wb") as f:
+                    f.write(audio_bytes)
+
+                # Transcribe the audio using OpenAI's Whisper ASR API
+                with open("recorded_audio.wav", "rb") as f:
+                    transcript = openai.Audio.translate(model="whisper-1", file=f, response_format="text")
+
+                input_text = transcript
+            else:
+                input_text = ""  # Provide an empty input if audio recording is unsuccessful
+
+        return input_text
+
     user_input = get_text()
-   
+
     if user_input:
         user_keywords = extract_keywords(user_input)
         output = query(st.session_state.full_conversation.append({'role':'user','content':user_input}))
@@ -137,7 +148,6 @@ if selected == "TALK":
         st.audio(text_to_speech(output), format="audio/mp3")
     
     if st.session_state['prompted']:
-
         # Store user and bot messages separately
         all_user_messages = st.session_state['stored']
         all_bot_responses = st.session_state['prompted']
@@ -151,7 +161,7 @@ if selected == "TALK":
             message(st.session_state["prompted"][i], key=str(i))
             message(st.session_state['stored'][i], is_user=True, key=str(i) + '_user')
 
-     # Display chat summary of all conversations
+    # Display chat summary of all conversations
     display_chat_summary(all_conversations)
 
 # Display keywords
