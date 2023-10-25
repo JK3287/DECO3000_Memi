@@ -1,5 +1,7 @@
 - MEMI: Documentation -
 
+IN THE END PUT KEYS SOMEWHERE UNDETECTABLE!!
+
 For our app Memi, we used a plethora of coding and AI resources in order to help the finished product function.
 Firstly, in order to help build a simple chatbot, we used ChatGPT 3.5 for the back-end development.
 For front-end development we used Streamlit, as it is an effective tool in regard to building websites under a short amount of time.
