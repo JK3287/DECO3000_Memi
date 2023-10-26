@@ -35,8 +35,8 @@ JUSTIN KWON
     for transcription
     - OpenAI's Whisper as ASR takes in sound as input and provides a transcript
     - ChatGPT as a LLM comprehends text as input and due to a specific prompt template targeted towards
-    reminiscence therapy, generates responses in a manner similar
-    to the human language
+    reminiscence therapy, generates responses in a manner similar to the human language, making Memi an
+    effective agent
     - Google's Text-To-Speech API takes text and generates auditory responses as output, 
     as if the chatbot were to talk to users who could hear
     - Spacy as a NLP (Natural Language Processing) Library takes the conversation as input and provides keywords 
