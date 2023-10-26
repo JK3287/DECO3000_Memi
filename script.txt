@@ -23,7 +23,7 @@ VERONIKAH MCCLELLAND
 
 JUSTIN KWON
 - Demo Script: Models -
-. The main page right now is TALK, involving a chatbot made from at least 6 sources
+. The main page right now is TALK, involving a chatbot made from at least 7 sources
     - Streamlit was used for its ability to rapidly prototype a web application without the need to write for HTML, CSS or 
     Javascript, saving time
     - ChatGPT as a Large Language Model was used to comprehend text as input and generate responses in a manner similar
