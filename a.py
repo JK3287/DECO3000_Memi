@@ -1,4 +1,6 @@
-# streamlit run '/Users/yungvenuz/Documents/Uni/Year 3 DC/DECO3000/DECO3000_Memi/a.py'
+# Veronikah's pathname: streamlit run '/Users/vmcclelland/Desktop/Less Stupid Uni Stuff/Third Year Sem 2/Designing Intelligent Systems/memi/memi_main.py'
+# Justin's pathname: streamlit run '/Users/yungvenuz/Documents/Uni/Year 3 DC/DECO3000/DECO3000_Memi/memi_main.py'
+
 # imports
 import spacy_streamlit
 import spacy
@@ -26,7 +28,7 @@ st.set_page_config(
         page_icon=":robot:"
     )
 
-# CSS SOURCE https://discuss.streamlit.io/t/amend-streamlits-default-colourway-like-on-the-spacy-streamlit-app/4184/6
+# CSS SOURCE
 st.markdown(
     """
 <style>
@@ -61,7 +63,7 @@ if selected == "TALK":
 
     # Storing entire conversation in the required format of GPT-3.5 in Streamlit session
     if 'full_conversation' not in st.session_state:
-        st.session_state['full_conversation'] = [{'role':'system','content':'I want you to act as a therapist. I will write you how I feel and you will provide reminiscence therapy. If this is your first message, please introduce your role. Otherwise, you will suggest me methods to help me maintain my mental state. Do not make answers longer than 50 words. Your tone is friendly, yet formal.'}]
+        st.session_state['full_conversation'] = [{'role':'system','content':'You are Memi. I want you to assist me with creating a conversation that looks into past positive memories to put me in a better mood.  I want you to inquire about details of the memories I am telling you about, so we can get a better understanding of what happened.  Start with asking me about what I want to talk about, but if I am not sure, please prompt me with a conversation starter to help.  Please keep the conversation in a positive light, and help me to appreciate my past experiences.  Do not make answers longer than 50 words. Your tone is friendly and casual, yet caring and empathetic.'}]
     
     if 'conversation_keywords' not in st.session_state:
         st.session_state['conversation_keywords'] = []
@@ -115,7 +117,7 @@ if selected == "TALK":
         if input_option == "Text":
             input_text = st.text_input("You: ", "I am feeling...", key="input")
         else:
-            # Record audio using audio_recorder
+            # Record audio using audio_recorder ONLY WORKS IF TEXT IS FIRST
             st.info("Click the 'Record' button to start recording your voice.")
             audio_bytes = audio_recorder()
 
@@ -144,7 +146,7 @@ if selected == "TALK":
         st.session_state.stored.append(user_input)
         st.session_state.prompted.append(output)
         
-        # Text-to-Speech SOURCE: https://www.youtube.com/watch?v=3FntpyGiYao&t=794s&ab_channel=ClarkMcquiston
+        # Text-to-Speech
         st.audio(text_to_speech(output), format="audio/mp3")
     
     if st.session_state['prompted']:
