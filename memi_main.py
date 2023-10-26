@@ -115,7 +115,7 @@ if selected == "TALK":
         input_option = st.radio("Choose input method:", ("Text", "Record Voice"))
 
         if input_option == "Text":
-            input_text = st.text_input("You: ", "I am feeling...", key="input")
+            input_text = st.text_input("You: ", " ", key="input")
         else:
             # Record audio using audio_recorder ONLY WORKS IF TEXT IS FIRST
             st.info("Click the 'Record' button to start recording your voice.")
