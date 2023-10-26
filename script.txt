@@ -5,8 +5,10 @@ VERONIKAH MCCLELLAND
 . Memi - Reminiscence therapy chatbot that utilises ai to create conversations focusing on memories with its users
 . Target Audience - Elderly people
 . Problem area - High rates of loneliness and isolation in elderly people, which may lead to depression and dementia
-. We are trying to help them create positive experiences through reminisence therapy and new bonds with others by 
-  connecting them with other users with similar experiences
+. We found that reminiscence therapy is a great way to help elderly people feel more confident and positive about themselves,
+  and Memi focuses on this
+. We are also trying to help them create positive experiences through making new bonds with others by connecting them with 
+  other users using Memi with similar experiences
 . Benefits of using AI - more accessible (cheaper than person to person therapy, and can be accessed any time from home)
   and more personalised experiences
 
@@ -19,7 +21,8 @@ VERONIKAH MCCLELLAND
     - Input from user through chat
     - Data is interpreted by ChatGPT by having it predict the best response to the input using reminiscence therapy focused rules
     - An output is given to the user that helps continue the conversation
-    - Through this constant conversation, keywords are generated and stored, which are used to show what topics and themes the conversation is about
+    - Through this constant conversation, keywords are generated and stored, which are used to show what topics and themes the 
+      conversation is about
     - These keywords are then compared with other user's keywords from their own sessions, and if sessions have similar keywords,
       users are recommended to each other to bond through similar experiences
 
@@ -28,16 +31,16 @@ JUSTIN KWON
 . The main page right now is TALK, involving a chatbot made from SEVEN sources so far, with input from the user
     - Streamlit was used for its ability to rapidly prototype a web application without the need to write for HTML, CSS or 
     Javascript, saving time
-    - Audio_Recorder_Streamlit was used in order to record auditory input and provide a sound file as output to be used
+    - Audio_Recorder_Streamlit was used in order to record auditory input and provide a sound file
     for transcription
-    - OpenAI's Whisper as ASR takes in sound as input, and provides a transcript as output
+    - OpenAI's Whisper as ASR takes in sound as input and provides a transcript
     - ChatGPT as a LLM was used to comprehend text as input and generate responses in a manner similar
-    to the human language as output
-    - Google's Text-To-Speech API takes text to input and generates auditory responses as output, 
+    to the human language
+    - Google's Text-To-Speech API takes text and generates auditory responses as output, 
     as if the chatbot were to talk to users who could hear
-    - Spacy as a NLP (Natural Language Processing) Library takes the conversation as input and provides keywords as output
-     to help users meet like-minded people
-    - Finally, LangChain takes the conversation as an input, then shortens it into a summary as output
+    - Spacy as a NLP (Natural Language Processing) Library takes the conversation as input and provides keywords 
+    to help users meet like-minded people
+    - Finally, LangChain takes the conversation, then shortens it into a summary
    
 
 - Demo Script: Function -
