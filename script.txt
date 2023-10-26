@@ -34,7 +34,8 @@ JUSTIN KWON
     - Audio_Recorder_Streamlit was used in order to record auditory input and provide a sound file
     for transcription
     - OpenAI's Whisper as ASR takes in sound as input and provides a transcript
-    - ChatGPT as a LLM was used to comprehend text as input and generate responses in a manner similar
+    - ChatGPT as a LLM comprehends text as input and due to a specific prompt template targeted towards
+    reminiscence therapy, generates responses in a manner similar
     to the human language
     - Google's Text-To-Speech API takes text and generates auditory responses as output, 
     as if the chatbot were to talk to users who could hear
