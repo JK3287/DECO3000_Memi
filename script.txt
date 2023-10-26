@@ -23,18 +23,19 @@ VERONIKAH MCCLELLAND
 
 JUSTIN KWON
 - Demo Script: Models -
-. The main page right now is TALK, involving a chatbot made from at least 7 sources
+. The main page right now is TALK, involving a chatbot made from 7 sources so far
     - Streamlit was used for its ability to rapidly prototype a web application without the need to write for HTML, CSS or 
     Javascript, saving time
-    - ChatGPT as a Large Language Model was used to comprehend text as input and generate responses in a manner similar
+    - Audio_Recorder_Streamlit was used in order to record auditory input 
+    - OpenAI's Whisper was used to perform ASR as it transcribes what is being said
+    - ChatGPT as a LLM was used to comprehend text as input and generate responses in a manner similar
     to the human language
     - Google's Text-To-Speech API was used to generate auditory responses, as if the chatbot were to talk to users who could hear
-    - Spacy as a Natural Language Processing Library was used to tokenise keywords from a user's conversation with the
+    - Spacy as a NLP (Natural Language Processing) Library was used to tokenise keywords from a user's conversation with the
     chatbot to help categorise conversations and help them meet like-minded people
-    - LangChain was used in order to enhance the capabilities of ChatGPT, in regard to simplifying information, to summarise
+    - Finally, LangChain was used in order to enhance the capabilities of ChatGPT, in regard to simplifying information, to summarise
      conversations
-    - Audio_Recorder_Streamlit was used in order to record auditory input, with OpenAI's Whisper performing Automatic Speech
-    Recognition as it transcribes what is being said
+   
 
 - Demo Script: Function -
 . Three pages: TALK, CONNECT and FRIENDS
