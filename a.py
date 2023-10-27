@@ -1,5 +1,4 @@
-# Veronikah's pathname: streamlit run '/Users/vmcclelland/Desktop/Less Stupid Uni Stuff/Third Year Sem 2/Designing Intelligent Systems/memi/memi_main.py'
-# Justin's pathname: streamlit run '/Users/yungvenuz/Documents/Uni/Year 3 DC/DECO3000/DECO3000_Memi/memi_main.py'
+# streamlit run '/Users/yungvenuz/Documents/Uni/Year 3 DC/DECO3000/DECO3000_Memi/a_main.py'
 
 # imports
 import spacy_streamlit
@@ -24,9 +23,9 @@ load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 st.set_page_config(
-        page_title="Chatbot",
-        page_icon=":robot:"
-    )
+    page_title="Chatbot",
+    page_icon=":robot:"
+)
 
 # CSS SOURCE
 st.markdown(
@@ -43,8 +42,8 @@ st.markdown(
 # MENU
 with st.sidebar:
     selected = option_menu(
-        menu_title="Memi", #required
-        options=["TALK", "CONNECT", "FRIENDS"], #required
+        menu_title="Memi",  # required
+        options=["TALK", "CONNECT", "FRIENDS"],  # required
     )
 
 # TALK CHATBOT
@@ -63,8 +62,9 @@ if selected == "TALK":
 
     # Storing entire conversation in the required format of GPT-3.5 in Streamlit session
     if 'full_conversation' not in st.session_state:
-        st.session_state['full_conversation'] = [{'role':'system','content':'You are Memi. I want you to assist me with creating a conversation that looks into past positive memories to put me in a better mood.  I want you to inquire about details of the memories I am telling you about, so we can get a better understanding of what happened.  Start with asking me about what I want to talk about, but if I am not sure, please prompt me with a conversation starter to help.  Please keep the conversation in a positive light, and help me to appreciate my past experiences.  Do not make answers longer than 50 words. Your tone is friendly and casual, yet caring and empathetic.'}]
-    
+        st.session_state['full_conversation'] = [{'role': 'system',
+                                                  'content': 'You are Memi. I want you to assist me with creating a conversation that looks into past positive memories to put me in a better mood.  I want you to inquire about details of the memories I am telling you about, so we can get a better understanding of what happened.  Start with asking me about what I want to talk about, but if I am not sure, please prompt me with a conversation starter to help.  Please keep the conversation in a positive light, and help me to appreciate my past experiences.  Do not make answers longer than 50 words. Your tone is friendly and casual, yet caring and empathetic.'}]
+
     if 'conversation_keywords' not in st.session_state:
         st.session_state['conversation_keywords'] = []
 
@@ -75,40 +75,43 @@ if selected == "TALK":
         tts.write_to_fp(audio_bytes)
         audio_bytes.seek(0)
         return audio_bytes.read()
-    
+
     # Response function
     def query(user_text):
         response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=st.session_state.full_conversation
+            model="gpt-3.5-turbo",
+            messages=st.session_state.full_conversation
         )
-    
+
         message = response.choices[0].message.content
-        # Adding bot response to the 
-        st.session_state.full_conversation.append({'role':'system','content':message})
+        # Adding bot response to the
+        st.session_state.full_conversation.append({'role': 'system', 'content': message})
         bot_keywords = extract_keywords(message)
         st.session_state.conversation_keywords.extend(bot_keywords)
         return message
-    
+
     # Extract (NLP)
     def extract_keywords(text):
         doc = nlp(text)
         keywords = [token.text for token in doc if not token.is_stop and token.is_alpha]
         return keywords
-    
-    # Summarise
+
+    # Summarize
     def summarize_text(texts):
         llm = OpenAI(temperature=0, openai_api_key=os.getenv("OPENAI_API_KEY"))
         docs = [Document(page_content=t) for t in texts]
         chain = load_summarize_chain(llm, chain_type='map_reduce')
         summary = chain.run(docs)
         return summary
-    
+
     # Display
     def display_chat_summary(chat_log):
         st.subheader("Chat Summary")
         summary = summarize_text(chat_log)
         st.write(summary)
+
+    # Initialize the all_conversations list
+    all_conversations = []
 
     # Input function
     def get_text():
@@ -142,13 +145,13 @@ if selected == "TALK":
 
     if user_input:
         user_keywords = extract_keywords(user_input)
-        output = query(st.session_state.full_conversation.append({'role':'user','content':user_input}))
+        output = query(st.session_state.full_conversation.append({'role': 'user', 'content': user_input}))
         st.session_state.stored.append(user_input)
         st.session_state.prompted.append(output)
-        
+
         # Text-to-Speech
         st.audio(text_to_speech(output), format="audio/mp3")
-    
+
     if st.session_state['prompted']:
         # Store user and bot messages separately
         all_user_messages = st.session_state['stored']
@@ -156,10 +159,10 @@ if selected == "TALK":
 
         # Write all conversations
         all_conversations = [f"You: {user}\nBot: {bot}" for user, bot in zip(all_user_messages, all_bot_responses)]
-        
+
         # Filter out keywords
         conversation_keywords = [extract_keywords(message) for message in all_conversations]
-        for i in range(len(st.session_state['prompted'])-1, -1, -1):
+        for i in range(len(st.session_state['prompted']) - 1, -1, -1):
             message(st.session_state["prompted"][i], key=str(i))
             message(st.session_state['stored'][i], is_user=True, key=str(i) + '_user')
 
@@ -174,7 +177,7 @@ st.write("Keywords include:", ", ".join(st.session_state.conversation_keywords))
 if selected == "CONNECT":
     st.header("CONNECT")
     st.subheader("Connect with like-minded individuals.")
-    
+
 # FRIENDS
 if selected == "FRIENDS":
     st.header("FRIENDS")
