@@ -175,9 +175,9 @@ st.subheader("Keywords")
 st.write("Keywords include:", ", ".join(st.session_state.conversation_keywords))
 
 # CONNECT
-if selected == "CONNECT":
-    st.header("CONNECT")
-    st.subheader("Connect with like-minded individuals.")
+#if selected == "CONNECT":
+#    st.header("CONNECT")
+#    st.subheader("Connect with like-minded individuals.")
 
 # FRIENDS
 if selected == "FRIENDS":
