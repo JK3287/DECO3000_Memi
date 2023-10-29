@@ -44,7 +44,7 @@ st.markdown(
 with st.sidebar:
     selected = option_menu(
         menu_title="Memi",  # required
-        options=["TALK", "CONNECT", "FRIENDS"],  # required
+        options=["TALK", "FRIENDS"],  # required
     )
 
 # TALK CHATBOT
