@@ -170,9 +170,9 @@ if selected == "TALK":
     # Display chat summary of all conversations
     display_chat_summary(all_conversations)
 
-# Display keywords
-st.subheader("Keywords")
-st.write("Keywords include:", ", ".join(st.session_state.conversation_keywords))
+    # Display keywords
+    st.subheader("Keywords")
+    st.write("Keywords include:", ", ".join(st.session_state.conversation_keywords))
 
 # CONNECT
 #if selected == "CONNECT":
