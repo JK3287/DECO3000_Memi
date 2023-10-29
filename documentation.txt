@@ -13,15 +13,17 @@ References:
 
 CANVA REPORT: 
 
-For personality and emotion detection database: https://github.com/npuliyang/Personality-Detection-MTL/blob/main/GraphMTL.py
-For keyword extraction: https://www.analyticsvidhya.com/blog/2022/01/text-analysis-app-using-spacy-streamlit-and-hugging-face-spaces/
-For CSS: https://discuss.streamlit.io/t/amend-streamlits-default-colourway-like-on-the-spacy-streamlit-app/4184/6
 For Chatbot: https://pythonwarriors.com/build-chatbot-using-gpt-4-and-streamlit-in-python/
-For NLP: https://blog.jcharistech.com/2020/07/09/simple-nlp-app-with-spacy-streamlit/
-For Summary: https://blog.streamlit.io/langchain-tutorial-3-build-a-text-summarization-app/
-For gTTS: https://www.youtube.com/watch?v=3FntpyGiYao&t=794s&ab_channel=ClarkMcquiston
+For CSS: https://discuss.streamlit.io/t/amend-streamlits-default-colourway-like-on-the-spacy-streamlit-app/4184/6
 For ASR(1): https://pypi.org/project/audio-recorder-streamlit/
 For ASR(2): https://platform.openai.com/docs/guides/speech-to-text
+For gTTS: https://www.youtube.com/watch?v=3FntpyGiYao&t=794s&ab_channel=ClarkMcquiston
+For NLP: https://blog.jcharistech.com/2020/07/09/simple-nlp-app-with-spacy-streamlit/
+For keyword extraction: https://www.analyticsvidhya.com/blog/2022/01/text-analysis-app-using-spacy-streamlit-and-hugging-face-spaces/
+For Summary: https://blog.streamlit.io/langchain-tutorial-3-build-a-text-summarization-app/
+For personality and emotion detection database: https://github.com/npuliyang/Personality-Detection-MTL/blob/main/GraphMTL.py
+
+
 
 CHATGPT (NLP, Summary, STT)
 
