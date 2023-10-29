@@ -7,3 +7,5 @@ The first page, **TALK** is in the form of a Large Language Model chatbot that u
 
 The second page, **FRIENDS** is built to host a list of friends that the user has found through a consultation with the chatbot from the TALK page.
 
+## Setup
+
