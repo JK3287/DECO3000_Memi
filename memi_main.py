@@ -4,8 +4,16 @@
 # imports
 import spacy
 nlp = spacy.load("en_core_web_sm")
-en = spacy.load("en_core_web_sm")
-stopwords = en.Defaults.stop_words
+nlp.Defaults.stop_words |= {"hey","uh","ah","oh","aw", "sorry", "hear", "feeling", "way", "reflecting", "positive", "memories", "help", "lift",
+                            "spirits", "particular", "memory", "experience", "comes", "mind", "think", "happy", "time", "let", "prompt",
+                            "tell", "time", "felt", "truly", "alive", "joyful", "assist", "support", "sounds", "like", "use", "boost", "positivity", 
+                            "like", "talk", "favorite", "sure", "start", "ask","question", "pleasant", "exciting", "taken", "sounds", "amazing", 
+                            "special", "memorable", "specific", "moment", "stood", "looking", "mood", "remind", "happier", "times", "suggest", 
+                            "conversation", "starter", "going", "provide", "need", "important", "reach", "mental", "health", "professional", 
+                            "trusted", "person", "life", "understand", "feel", "break", "focus", "moments", "brings", 
+                            "joy", "makes", "feel", "totally", "normal", "days", "bit", "disconnected", "topic", "fun", "vacation", "vacations",
+                            "achievement", "proud", "trip", "trips", "situation", "thing", "things", "completely", "certain", "bring", "wave", "nostalgia",
+                            "natural", "ups", "downs", "kind", "enjoy"}
 import openai
 import os
 from dotenv import load_dotenv
@@ -159,11 +167,11 @@ if selected == "TALK":
         all_user_messages = st.session_state['stored']
         all_bot_responses = st.session_state['prompted']
 
-        # Filter out keywords
-        conversation_keywords = [extract_keywords(message) for message in all_user_messages]
-        for i in range(len(st.session_state['prompted']) - 1, -1, -1):
-            message(st.session_state["prompted"][i], key=str(i))
-            message(st.session_state['stored'][i], is_user=True, key=str(i) + '_user')
+    # Filter out keywords
+    conversation_keywords = [extract_keywords(message) for message in all_user_messages]
+    for i in range(len(st.session_state['prompted']) - 1, -1, -1):
+        message(st.session_state["prompted"][i], key=str(i))
+        message(st.session_state['stored'][i], is_user=True, key=str(i) + '_user')
 
     # Display chat summary of all conversations
     display_chat_summary(all_user_messages)
