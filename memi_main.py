@@ -159,7 +159,7 @@ if selected == "TALK":
         all_bot_responses = st.session_state['prompted']
 
         # Filter out keywords
-        conversation_keywords = [extract_keywords(message) for message in all_conversations]
+        conversation_keywords = [extract_keywords(message) for message in all_user_messages]
         for i in range(len(st.session_state['prompted']) - 1, -1, -1):
             message(st.session_state["prompted"][i], key=str(i))
             message(st.session_state['stored'][i], is_user=True, key=str(i) + '_user')
