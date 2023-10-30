@@ -111,8 +111,8 @@ if selected == "TALK":
         summary = summarize_text(chat_log)
         st.write(summary)
 
-    # Initialize the all_conversations list
-    all_conversations = []
+    # Initialize the list
+    all_user_messages = []
 
     # Input function
     def get_text():
@@ -158,11 +158,8 @@ if selected == "TALK":
         all_user_messages = st.session_state['stored']
         all_bot_responses = st.session_state['prompted']
 
-        # Write all conversations
-        all_conversations = [f"You: {user}\nBot: {bot}" for user, bot in zip(all_user_messages, all_bot_responses)]
-
         # Filter out keywords
-        conversation_keywords = [extract_keywords(message) for message in all_user_messages]
+        conversation_keywords = [extract_keywords(message) for message in all_conversations]
         for i in range(len(st.session_state['prompted']) - 1, -1, -1):
             message(st.session_state["prompted"][i], key=str(i))
             message(st.session_state['stored'][i], is_user=True, key=str(i) + '_user')
