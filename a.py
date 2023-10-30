@@ -1,17 +1,18 @@
 # streamlit run '/Users/yungvenuz/Documents/Uni/Year 3 DC/DECO3000/DECO3000_Memi/a.py'
 
 # imports
-import spacy_streamlit
 import spacy
 nlp = spacy.load("en_core_web_sm")
-from streamlit_option_menu import option_menu
-from audio_recorder_streamlit import audio_recorder
+en = spacy.load("en_core_web_sm")
+stopwords = en.Defaults.stop_words
 import openai
 import os
 from dotenv import load_dotenv
 import streamlit as st
 from streamlit_option_menu import option_menu
 from streamlit_chat import message
+import spacy_streamlit
+from audio_recorder_streamlit import audio_recorder
 from gtts import gTTS
 from io import BytesIO
 from langchain import OpenAI
@@ -43,7 +44,7 @@ st.markdown(
 with st.sidebar:
     selected = option_menu(
         menu_title="Memi",  # required
-        options=["TALK", "CONNECT", "FRIENDS"],  # required
+        options=["TALK", "FRIENDS"],  # required
     )
 
 # TALK CHATBOT
@@ -110,8 +111,8 @@ if selected == "TALK":
         summary = summarize_text(chat_log)
         st.write(summary)
 
-    # Initialize the all_conversations list
-    all_conversations = []
+    # Initialize the list
+    all_user_messages = []
 
     # Input function
     def get_text():
@@ -157,26 +158,30 @@ if selected == "TALK":
         all_user_messages = st.session_state['stored']
         all_bot_responses = st.session_state['prompted']
 
-        # Write all conversations
-        all_conversations = [f"You: {user}\nBot: {bot}" for user, bot in zip(all_user_messages, all_bot_responses)]
-
         # Filter out keywords
-        conversation_keywords = [extract_keywords(message) for message in all_conversations]
+        conversation_keywords = [extract_keywords(message) for message in all_user_messages]
         for i in range(len(st.session_state['prompted']) - 1, -1, -1):
             message(st.session_state["prompted"][i], key=str(i))
             message(st.session_state['stored'][i], is_user=True, key=str(i) + '_user')
 
     # Display chat summary of all conversations
-    display_chat_summary(all_conversations)
+    display_chat_summary(all_user_messages)
 
-# Display keywords
-st.subheader("Keywords")
-st.write("Keywords include:", ", ".join(st.session_state.conversation_keywords))
+
+    # Filter keywords
+    filter_keywords = []
+    for token in all_user_messages.split():
+        if token.lower() not in stopwords:
+            filter_keywords.append(token)
+
+    # Display keywords
+    st.subheader("Keywords")
+    st.write("Keywords include:", ", ".join(st.session_state.filter_keywords))
 
 # CONNECT
-if selected == "CONNECT":
-    st.header("CONNECT")
-    st.subheader("Connect with like-minded individuals.")
+#if selected == "CONNECT":
+#    st.header("CONNECT")
+#    st.subheader("Connect with like-minded individuals.")
 
 # FRIENDS
 if selected == "FRIENDS":
