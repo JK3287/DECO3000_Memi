@@ -162,13 +162,13 @@ if selected == "TALK":
         all_conversations = [f"You: {user}\nBot: {bot}" for user, bot in zip(all_user_messages, all_bot_responses)]
 
         # Filter out keywords
-        conversation_keywords = [extract_keywords(message) for message in all_conversations]
+        conversation_keywords = [extract_keywords(message) for message in all_user_messages]
         for i in range(len(st.session_state['prompted']) - 1, -1, -1):
             message(st.session_state["prompted"][i], key=str(i))
             message(st.session_state['stored'][i], is_user=True, key=str(i) + '_user')
 
     # Display chat summary of all conversations
-    display_chat_summary(all_conversations)
+    display_chat_summary(all_user_messages)
 
     # Display keywords
     st.subheader("Keywords")
