@@ -4,6 +4,8 @@
 # imports
 import spacy
 nlp = spacy.load("en_core_web_sm")
+en = spacy.load("en_core_web_sm")
+stopwords = en.Defaults.stop_words
 import openai
 import os
 from dotenv import load_dotenv

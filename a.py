@@ -167,17 +167,9 @@ if selected == "TALK":
     # Display chat summary of all conversations
     display_chat_summary(all_user_messages)
 
-    conversation_keywords_str = ", ".join(conversation_keywords)
-
-    # Filter keywords
-    filter_keywords = []
-    for token in conversation_keywords_str.split():
-        if token.lower() not in stopwords:
-            filter_keywords.append(token)
-
     # Display keywords
     st.subheader("Keywords")
-    st.write("Keywords include:", ", ".join(st.session_state.filter_keywords))
+    st.write("Keywords include:", ", ".join(st.session_state.conversation_keywords))
 
 # CONNECT
 #if selected == "CONNECT":
