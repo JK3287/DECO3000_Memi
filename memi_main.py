@@ -19,6 +19,8 @@ from langchain.docstore.document import Document
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.chains.summarize import load_summarize_chain
 
+from spacy import STOP_WORDS
+
 load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
@@ -163,12 +165,19 @@ if selected == "TALK":
             message(st.session_state["prompted"][i], key=str(i))
             message(st.session_state['stored'][i], is_user=True, key=str(i) + '_user')
 
+    filtered_keywords = []
+
+    for word in conversation_keywords:
+        lexeme = nlp.vocab[word]
+        if lexeme.is_stop == False:
+            filtered_keywords.append(word)
+
     # Display chat summary of all conversations
     display_chat_summary(all_user_messages)
 
     # Display keywords
     st.subheader("Keywords")
-    st.write("Keywords include:", ", ".join(st.session_state.conversation_keywords))
+    st.write("Keywords include:", ", ".join(st.session_state.filtered_keywords))
 
 # CONNECT
 #if selected == "CONNECT":
