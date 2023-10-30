@@ -2,17 +2,16 @@
 # Justin's pathname: streamlit run '/Users/yungvenuz/Documents/Uni/Year 3 DC/DECO3000/DECO3000_Memi/memi_main.py'
 
 # imports
-import spacy_streamlit
 import spacy
 nlp = spacy.load("en_core_web_sm")
-from streamlit_option_menu import option_menu
-from audio_recorder_streamlit import audio_recorder
 import openai
 import os
 from dotenv import load_dotenv
 import streamlit as st
 from streamlit_option_menu import option_menu
 from streamlit_chat import message
+import spacy_streamlit
+from audio_recorder_streamlit import audio_recorder
 from gtts import gTTS
 from io import BytesIO
 from langchain import OpenAI
