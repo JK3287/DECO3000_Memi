@@ -1,4 +1,4 @@
-# DECO3000 A5 Memi - by Veronikah McClelland and Justin Kwon
+# DECO3000 A5 MEMI - by Veronikah McClelland and Justin Kwon
 
 ## Introduction
 Memi is an app that employs artificial intelligence, as a solution made in order to tackle mental issues that come with age. The app contains two pages: **TALK** and **FRIENDS**. 
@@ -28,3 +28,5 @@ In order to setup Memi, it is recommended that you have the following: an **Inte
 * spacy
 * spacy_streamlit
 
+## How to use Memi
+Memi will start on all cases, at the **TALK** page. There you have two options to provide input for the chatbot: to type in using **text**, or to record your own **voice**. Once you provide your input, wait a few seconds and the chatbot will provide you with a response based on reminiscence therapy. Once you have talked enough to the chatbot, ask it to find friends. As seen on the bottom, the chatbot generates keywords and a summary based on your conversation. Soon it will find friends using keywords. Then go to the **FRIENDS** page.
