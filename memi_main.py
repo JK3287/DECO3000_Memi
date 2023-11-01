@@ -61,6 +61,7 @@ if selected == "TALK":
     # Header
     st.header("TALK")
     st.subheader("Feel free to talk to an AI chatbot, who will provide you with reminiscence therapy.")
+    unique_keywords = set()
 
     # Storing GPT-3.5 responses for easy retrieval to show on Chatbot UI in Streamlit session
     if 'prompted' not in st.session_state:
@@ -104,6 +105,7 @@ if selected == "TALK":
     def extract_keywords(text):
         doc = nlp(text)
         keywords = [token.text for token in doc if not token.is_stop and token.is_alpha]
+        unique_keywords.update(keywords)
         return keywords
 
     # Summarize
@@ -178,7 +180,7 @@ if selected == "TALK":
 
     # Display keywords
     st.subheader("Keywords")
-    st.write("Keywords include:", ", ".join(st.session_state.conversation_keywords))
+    st.write("Keywords include:", ", ".join(unique_keywords))
 
 # CONNECT
 #if selected == "CONNECT":
