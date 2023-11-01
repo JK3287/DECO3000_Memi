@@ -183,8 +183,16 @@ if selected == "TALK":
         st.session_state.stored.append(user_input)
         st.session_state.prompted.append(output)
 
+        potential_friends = find_friend(unique_keywords)
+
         # Text-to-Speech
         st.audio(text_to_speech(output), format="audio/mp3")
+
+        if potential_friends:
+            st.subheader("Potential Friends")
+            for friend in potential_friends:
+                st.write(f"Name: {friend['Name']}")
+                st.write(f"Matching Keywords: {friend['Matching Keywords']}")
 
     if st.session_state['prompted']:
         # Store user and bot messages separately
@@ -203,19 +211,6 @@ if selected == "TALK":
     # Display keywords
     st.subheader("Keywords")
     st.write("Keywords include:", ", ".join(unique_keywords))
-
-    potential_friends = find_friend(unique_keywords)
-    if potential_friends:
-        st.subheader("Potential Friends")
-        for friend in potential_friends:
-            st.write(f"Name: {friend['Name']}")
-            st.write(f"Matching Keywords: {friend['Matching Keywords']}")
-
-
-
-
-
-
 
 # CONNECT
 #if selected == "CONNECT":
