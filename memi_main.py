@@ -11,8 +11,8 @@ nlp.Defaults.stop_words |= {"hey","uh","ah","oh","aw", "sorry", "hear", "feeling
                             "special", "memorable", "specific", "moment", "stood", "looking", "mood", "remind", "happier", "times", "suggest", 
                             "conversation", "starter", "going", "provide", "need", "important", "reach", "mental", "health", "professional", 
                             "trusted", "person", "life", "understand", "feel", "break", "focus", "moments", "brings", 
-                            "joy", "makes", "feel", "totally", "normal", "days", "bit", "disconnected", "topic", "fun", "vacation", "vacations",
-                            "achievement", "proud", "trip", "trips", "situation", "thing", "things", "completely", "certain", "bring", "wave", "nostalgia",
+                            "joy", "makes", "feel", "totally", "normal", "days", "bit", "disconnected", "topic", "fun",
+                            "achievement", "proud", "situation", "thing", "things", "completely", "certain", "bring", "wave", "nostalgia",
                             "natural", "ups", "downs", "kind", "enjoy", "left", "right", "miss", "missed", "reminiscence", "reminisce", "reminisced", "reminisces", 
                             "reminiscent"}
 
