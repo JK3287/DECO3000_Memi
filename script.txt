@@ -95,11 +95,11 @@ Concept:
 . 2D and Motion graphics
 . If needed, animatic style
 
-. Hospital staff/old people are busy in a nursing home, leaving Gertrude on her own
-. Gertrude uses her phone to go to MEMI
-* NARRATOR: "MEMI helps old people like Gertrude feel less lonely through strengthening
+. Hospital staff/old people are busy in a nursing home, leaving Joan on her own
+. Joan uses her phone to go to MEMI
+* NARRATOR: "MEMI helps old people like Joan feel less lonely through strengthening
 episodic memory and restoring a sense of identity through an accessible, non-intrusive and personalised manner."
-. Gertrude has a chat with the therapist through TALK
+. Joan has a chat with the therapist through TALK
 * NARRATOR: "MEMI's TALK feature acts as a reminiscence therapist, and essentially pursues positive memories 
 from users."
 
