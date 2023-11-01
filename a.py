@@ -135,11 +135,11 @@ if selected == "TALK":
             keywords = row['KEYWORD'].split(', ')
             matching_keywords = set(unique_keywords) & set(keywords)
 
-        if len(matching_keywords) > 0:
-            potential_friends.append({
-                'Name': row['NAME'],
-                'Matching Keywords': ', '.join(matching_keywords)
-            })
+            if len(matching_keywords) > 0:
+                potential_friends.append({
+                    'Name': row['NAME'],
+                    'Matching Keywords': ', '.join(matching_keywords)
+                })
         
         return potential_friends
 
