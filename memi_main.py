@@ -13,7 +13,9 @@ nlp.Defaults.stop_words |= {"hey","uh","ah","oh","aw", "sorry", "hear", "feeling
                             "trusted", "person", "life", "understand", "feel", "break", "focus", "moments", "brings", 
                             "joy", "makes", "feel", "totally", "normal", "days", "bit", "disconnected", "topic", "fun", "vacation", "vacations",
                             "achievement", "proud", "trip", "trips", "situation", "thing", "things", "completely", "certain", "bring", "wave", "nostalgia",
-                            "natural", "ups", "downs", "kind", "enjoy"}
+                            "natural", "ups", "downs", "kind", "enjoy", "left", "right", "miss", "missed", "reminiscence", "reminisce", "reminisced", "reminisces", 
+                            "reminiscent"}
+
 import openai
 import os
 from dotenv import load_dotenv
