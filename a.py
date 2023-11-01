@@ -2,7 +2,6 @@
 
 # imports
 
-
 import openai
 import os
 from dotenv import load_dotenv
@@ -16,7 +15,7 @@ from langchain import OpenAI
 from langchain.docstore.document import Document
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.chains.summarize import load_summarize_chain
-import pandas as pd 
+import pandas as pd
 
 import spacy
 nlp = spacy.load("en_core_web_sm")
@@ -134,7 +133,7 @@ if selected == "TALK":
 
         for index, row in data.iterrows():
             keywords = row['KEYWORD'].split(', ')
-            matching_keywords = set(unique_keywords) & set(keywords)
+            matching_keywords = list(set(unique_keywords) & set(keywords))
 
         if len(matching_keywords) > 0:
             potential_friends.append({
@@ -182,6 +181,7 @@ if selected == "TALK":
         output = query(st.session_state.full_conversation.append({'role': 'user', 'content': user_input}))
         st.session_state.stored.append(user_input)
         st.session_state.prompted.append(output)
+        unique_keywords.update(user_keywords)
 
         potential_friends = find_friend(unique_keywords)
 
