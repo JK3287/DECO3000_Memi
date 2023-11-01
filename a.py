@@ -1,6 +1,23 @@
 # streamlit run '/Users/yungvenuz/Documents/Uni/Year 3 DC/DECO3000/DECO3000_Memi/a.py'
 
 # imports
+
+
+import openai
+import os
+from dotenv import load_dotenv
+import streamlit as st
+from streamlit_option_menu import option_menu
+from streamlit_chat import message
+from audio_recorder_streamlit import audio_recorder
+from gtts import gTTS
+from io import BytesIO
+from langchain import OpenAI
+from langchain.docstore.document import Document
+from langchain.text_splitter import CharacterTextSplitter
+from langchain.chains.summarize import load_summarize_chain
+import pandas as pd 
+
 import spacy
 nlp = spacy.load("en_core_web_sm")
 nlp.Defaults.stop_words |= {"hey","uh","ah","oh","aw", "sorry", "hear", "feeling", "way", "reflecting", "positive", "memories", "help", "lift",
@@ -10,23 +27,11 @@ nlp.Defaults.stop_words |= {"hey","uh","ah","oh","aw", "sorry", "hear", "feeling
                             "special", "memorable", "specific", "moment", "stood", "looking", "mood", "remind", "happier", "times", "suggest", 
                             "conversation", "starter", "going", "provide", "need", "important", "reach", "mental", "health", "professional", 
                             "trusted", "person", "life", "understand", "feel", "break", "focus", "moments", "brings", 
-                            "joy", "makes", "feel", "totally", "normal", "days", "bit", "disconnected", "topic", "fun", "vacation", "vacations",
-                            "achievement", "proud", "trip", "trips", "situation", "thing", "things", "completely", "certain", "bring", "wave", "nostalgia",
-                            "natural", "ups", "downs", "kind", "enjoy"}
-import openai
-import os
-from dotenv import load_dotenv
-import streamlit as st
-from streamlit_option_menu import option_menu
-from streamlit_chat import message
+                            "joy", "makes", "feel", "totally", "normal", "days", "bit", "disconnected", "topic", "fun",
+                            "achievement", "proud", "situation", "thing", "things", "completely", "certain", "bring", "wave", "nostalgia",
+                            "natural", "ups", "downs", "kind", "enjoy", "left", "right", "miss", "missed", "reminiscence", "reminisce", "reminisced", "reminisces", 
+                            "reminiscent"}
 import spacy_streamlit
-from audio_recorder_streamlit import audio_recorder
-from gtts import gTTS
-from io import BytesIO
-from langchain import OpenAI
-from langchain.docstore.document import Document
-from langchain.text_splitter import CharacterTextSplitter
-from langchain.chains.summarize import load_summarize_chain
 
 load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -121,6 +126,24 @@ if selected == "TALK":
         summary = summarize_text(chat_log)
         st.write(summary)
 
+    # Find friends
+    def find_friend(unique_keywords):
+        data = pd.read_excel('database.xlsx')
+
+        potential_friends = []
+
+        for index, row in data.iterrows():
+            keywords = row['KEYWORD'].split(', ')
+            matching_keywords = set(unique_keywords) & set(keywords)
+
+        if len(matching_keywords) > 0:
+            potential_friends.append({
+                'Name': row['NAME'],
+                'Matching Keywords': ', '.join(matching_keywords)
+            })
+
+        return potential_friends
+
     # Initialize the list
     all_user_messages = []
 
@@ -160,8 +183,16 @@ if selected == "TALK":
         st.session_state.stored.append(user_input)
         st.session_state.prompted.append(output)
 
+        potential_friends = find_friend(unique_keywords)
+
         # Text-to-Speech
         st.audio(text_to_speech(output), format="audio/mp3")
+
+        if potential_friends:
+            st.subheader("Potential Friends")
+            for friend in potential_friends:
+                st.write(f"Name: {friend['Name']}")
+                st.write(f"Matching Keywords: {friend['Matching Keywords']}")
 
     if st.session_state['prompted']:
         # Store user and bot messages separately
