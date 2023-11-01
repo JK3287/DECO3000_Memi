@@ -133,13 +133,15 @@ if selected == "TALK":
 
         for index, row in data.iterrows():
             keywords = row['KEYWORD'].split(', ')
-            matching_keywords = list(set(unique_keywords) & set(keywords))
+            matching_keywords = set(unique_keywords) & set(keywords)
 
         if len(matching_keywords) > 0:
             potential_friends.append({
                 'Name': row['NAME'],
                 'Matching Keywords': ', '.join(matching_keywords)
             })
+        
+        unique_keywords.update(keywords)
 
         return potential_friends
 
