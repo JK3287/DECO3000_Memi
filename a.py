@@ -141,8 +141,6 @@ if selected == "TALK":
                 'Matching Keywords': ', '.join(matching_keywords)
             })
         
-        unique_keywords.update(keywords)
-
         return potential_friends
 
     # Initialize the list
