@@ -34,11 +34,8 @@ nlp.Defaults.stop_words |= {"hey","uh","ah","oh","aw", "sorry", "hear", "feeling
                             "reminiscent"}
 import spacy_streamlit
 
-from elevenlabs import Voice, VoiceSettings, generate, play, set_api_key
-
 load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
-set_api_key(os.getenv("ELEVEN_API_KEY"))
 
 st.set_page_config(
     page_title="Chatbot",
