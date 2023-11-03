@@ -37,11 +37,11 @@ In order to get the program running, please make the following hidden files/fold
 * .streamlit (folder) 
 - config.toml (file) - add the following to the file and customise it at your own will:
 
-    [theme]
-    primaryColor="#3a6883"
-    backgroundColor="#b6e6ff"
-    secondaryBackgroundColor="#ffffff"
-    textColor="#1d3441"
+   . [theme]
+   . primaryColor="#3a6883"
+   . backgroundColor="#b6e6ff"
+   . secondaryBackgroundColor="#ffffff"
+   . textColor="#1d3441"
 
 Once you get this done, on a Conda terminal, type in streamlit run 'pathname/memi_main.py', and Memi should open up as a new tab on your browser.
 
