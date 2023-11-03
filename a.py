@@ -31,7 +31,7 @@ nlp.Defaults.stop_words |= {"hey","uh","ah","oh","aw", "sorry", "hear", "feeling
                             "joy", "makes", "feel", "totally", "normal", "days", "bit", "disconnected", "topic", "fun",
                             "achievement", "proud", "situation", "thing", "things", "completely", "certain", "bring", "wave", "nostalgia",
                             "natural", "ups", "downs", "kind", "enjoy", "left", "right", "miss", "missed", "reminiscence", "reminisce", "reminisced", "reminisces", 
-                            "reminiscent"}
+                            "reminiscent", "maybe"}
 import spacy_streamlit
 
 load_dotenv()
