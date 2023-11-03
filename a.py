@@ -54,7 +54,7 @@ st.markdown(
 .stRadio [role=radiogroup]{
         align-items: center;
         justify-content: center;
-        transform: scale(1.5);
+        transform: scale(1.25);
     }
 
 </style>
@@ -77,7 +77,9 @@ if selected == "TALK":
     
     # Header
     st.title("TALK")
+    st.header(" ")
     st.header("Feel free to talk to an AI chatbot, who will provide you with reminiscence therapy.")
+    st.header(" ")
     unique_keywords = set()
 
     # Storing GPT-3.5 responses for easy retrieval to show on Chatbot UI in Streamlit session
@@ -91,7 +93,7 @@ if selected == "TALK":
     # Storing entire conversation in the required format of GPT-3.5 in Streamlit session
     if 'full_conversation' not in st.session_state:
         st.session_state['full_conversation'] = [{'role': 'system',
-                                                  'content': 'You are Memi. I want you to assist me with creating a conversation that looks into past positive memories to put me in a better mood.  I want you to inquire about details of the memories I am telling you about, so we can get a better understanding of what happened.  Start with asking me about what I want to talk about, but if I am not sure, please prompt me with a conversation starter to help.  Please keep the conversation in a positive light, and help me to appreciate my past experiences.  Do not make answers longer than 50 words. Your tone is friendly and casual, yet caring and empathetic.'}]
+                                                  'content': 'You are Memi. I want you to assist me with creating a conversation that looks into past positive memories to put me in a better mood.  I want you to inquire about details of the memories I am telling you about, so we can get a better understanding of what happened.  Start with asking me about what I want to talk about, but if I am not sure, please prompt me with a conversation starter to help.  Please keep the conversation in a positive light, and help me to appreciate my past experiences.  Do not make answers longer than 50 words. Do not use interjections. Your tone is friendly and casual, yet caring and empathetic.'}]
 
     if 'conversation_keywords' not in st.session_state:
         st.session_state['conversation_keywords'] = []
@@ -126,16 +128,17 @@ if selected == "TALK":
         return keywords
 
     # Summarize
-    def summarize_text(texts):
+    def summarize_text(chat_log):
         llm = OpenAI(temperature=0, openai_api_key=os.getenv("OPENAI_API_KEY"))
-        docs = [Document(page_content=t) for t in texts]
+        docs = [Document(page_content=t) for t in chat_log]
         chain = load_summarize_chain(llm, chain_type='map_reduce')
         summary = chain.run(docs)
         return summary
 
     # Display
     def display_chat_summary(chat_log):
-        st.subheader("Chat Summary")
+        st.header(" ")
+        st.markdown("#### Chat Summary", unsafe_allow_html=True)
         summary = summarize_text(chat_log)
         st.write(summary)
 
@@ -162,17 +165,17 @@ if selected == "TALK":
 
     # Input function
     def get_text():
-        st.subheader("Choose input method:")
+        st.markdown("#### Choose input method:", unsafe_allow_html=True)
         input_option = st.radio("", ("Text", "Record Voice"))
 
         if input_option == "Text":
-            st.subheader(" ")
-            st.subheader("Please type in the box below.")
+            st.header(" ")
+            st.markdown("#### Please type in the box below.", unsafe_allow_html=True)
             input_text = st.text_input("", " ", key="input")
         else:
             # Record audio using audio_recorder ONLY WORKS IF TEXT IS FIRST
-            st.subheader(" ")
-            st.subheader("Click the 'Record' button to start recording your voice.")
+            st.header(" ")
+            st.markdown("#### Click the 'Record' button to start recording your voice.", unsafe_allow_html=True)
 
             col1, col2 = st.columns([2,3])
 
@@ -235,14 +238,17 @@ if selected == "TALK":
     display_chat_summary(all_user_messages)
 
     # Display keywords
-    st.subheader("Keywords")
+    st.header(" ")
+    st.markdown("#### Keywords", unsafe_allow_html=True)
     st.write("Keywords include:", ", ".join(unique_keywords))
 
     if potential_friends:
-            st.subheader("Potential Friends")
+            st.header(" ")
+            st.markdown("#### Potential Friends", unsafe_allow_html=True)
             for friend in potential_friends:
-                st.write(f"Name: {friend['Name']}")
-                st.write(f"Matching Keywords: {friend['Matching Keywords']}")
+                st.write(f"**Name**: {friend['Name']}")
+                st.write(f"**Matching Keywords**: {friend['Matching Keywords']}")
+                st.subheader(" ")
 
 # CONNECT
 #if selected == "CONNECT":
