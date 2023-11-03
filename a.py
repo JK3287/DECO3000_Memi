@@ -48,7 +48,13 @@ st.markdown(
 <style>
 * {
    font-family: Montserrat;
+   text-align: center;
 }
+
+.stRadio [role=radiogroup]{
+        align-items: center;
+        justify-content: center;
+    }
 </style>
 """,
     unsafe_allow_html=True,
@@ -64,8 +70,8 @@ with st.sidebar:
 # TALK CHATBOT
 if selected == "TALK":
     # Header
-    st.header("TALK")
-    st.subheader("Feel free to talk to an AI chatbot, who will provide you with reminiscence therapy.")
+    st.title("TALK")
+    st.header("Feel free to talk to an AI chatbot, who will provide you with reminiscence therapy.")
     unique_keywords = set()
 
     # Storing GPT-3.5 responses for easy retrieval to show on Chatbot UI in Streamlit session
@@ -150,14 +156,22 @@ if selected == "TALK":
 
     # Input function
     def get_text():
-        input_option = st.radio("Choose input method:", ("Text", "Record Voice"))
+        st.subheader("Choose input method:")
+        input_option = st.radio("", ("Text", "Record Voice"))
 
         if input_option == "Text":
-            input_text = st.text_input("You: ", " ", key="input")
+            st.subheader("Please type in the box below.")
+            input_text = st.text_input("", " ", key="input")
         else:
             # Record audio using audio_recorder ONLY WORKS IF TEXT IS FIRST
-            st.info("Click the 'Record' button to start recording your voice.")
-            audio_bytes = audio_recorder()
+            st.subheader("Click the 'Record' button to start recording your voice.")
+            audio_bytes = audio_recorder(
+                text="",
+                recording_color="#e8b62c",
+                neutral_color="#6aa36f",
+                icon_name="microphone-lines",
+                icon_size="8x",
+            )
 
             if audio_bytes:
                 st.success("Audio recording successful!")
