@@ -9,7 +9,9 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 from streamlit_chat import message
 from audio_recorder_streamlit import audio_recorder
+
 from gtts import gTTS
+
 from io import BytesIO
 from langchain import OpenAI
 from langchain.docstore.document import Document
@@ -32,8 +34,11 @@ nlp.Defaults.stop_words |= {"hey","uh","ah","oh","aw", "sorry", "hear", "feeling
                             "reminiscent"}
 import spacy_streamlit
 
+from elevenlabs import Voice, VoiceSettings, generate, play, set_api_key
+
 load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
+set_api_key(os.getenv("ELEVEN_API_KEY"))
 
 st.set_page_config(
     page_title="Chatbot",
@@ -85,7 +90,7 @@ if selected == "TALK":
     # Text to speech function
     def text_to_speech(text):
         audio_bytes = BytesIO()
-        tts = gTTS(text=text, lang="en")
+        tts = gTTS(text=text, lang="en", slow=False)
         tts.write_to_fp(audio_bytes)
         audio_bytes.seek(0)
         return audio_bytes.read()
@@ -188,12 +193,6 @@ if selected == "TALK":
         # Text-to-Speech
         st.audio(text_to_speech(output), format="audio/mp3")
 
-        if potential_friends:
-            st.subheader("Potential Friends")
-            for friend in potential_friends:
-                st.write(f"Name: {friend['Name']}")
-                st.write(f"Matching Keywords: {friend['Matching Keywords']}")
-
     if st.session_state['prompted']:
         # Store user and bot messages separately
         all_user_messages = st.session_state['stored']
@@ -211,6 +210,12 @@ if selected == "TALK":
     # Display keywords
     st.subheader("Keywords")
     st.write("Keywords include:", ", ".join(unique_keywords))
+
+    if potential_friends:
+            st.subheader("Potential Friends")
+            for friend in potential_friends:
+                st.write(f"Name: {friend['Name']}")
+                st.write(f"Matching Keywords: {friend['Matching Keywords']}")
 
 # CONNECT
 #if selected == "CONNECT":

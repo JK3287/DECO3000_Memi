@@ -27,6 +27,8 @@ from audio_recorder_streamlit import audio_recorder
 from gtts import gTTS
 from io import BytesIO
 from langchain import OpenAI
+from typing_extensions import Protocol
+from langchain.llms import OpenAI
 from langchain.docstore.document import Document
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.chains.summarize import load_summarize_chain
