@@ -54,13 +54,18 @@ st.markdown(
 .stRadio [role=radiogroup]{
         align-items: center;
         justify-content: center;
+        transform: scale(1.5);
     }
+
 </style>
 """,
     unsafe_allow_html=True,
 )
 
 # MENU
+
+potential_friends = []
+
 with st.sidebar:
     selected = option_menu(
         menu_title="Memi",  # required
@@ -69,6 +74,7 @@ with st.sidebar:
 
 # TALK CHATBOT
 if selected == "TALK":
+    
     # Header
     st.title("TALK")
     st.header("Feel free to talk to an AI chatbot, who will provide you with reminiscence therapy.")
@@ -160,19 +166,29 @@ if selected == "TALK":
         input_option = st.radio("", ("Text", "Record Voice"))
 
         if input_option == "Text":
+            st.subheader(" ")
             st.subheader("Please type in the box below.")
             input_text = st.text_input("", " ", key="input")
         else:
             # Record audio using audio_recorder ONLY WORKS IF TEXT IS FIRST
+            st.subheader(" ")
             st.subheader("Click the 'Record' button to start recording your voice.")
-            audio_bytes = audio_recorder(
-                text="",
-                recording_color="#e8b62c",
-                neutral_color="#6aa36f",
-                icon_name="microphone-lines",
-                icon_size="8x",
-            )
 
+            col1, col2 = st.columns([2,3])
+
+            with col1:
+                st.write("")
+            
+            with col2:
+            
+                audio_bytes = audio_recorder(
+                    text="",
+                    recording_color="#ff0000",
+                    neutral_color="#3a6883",
+                    icon_name="microphone-lines",
+                    icon_size="8x",
+                )
+            
             if audio_bytes:
                 st.success("Audio recording successful!")
 
