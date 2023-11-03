@@ -31,7 +31,6 @@ nlp.Defaults.stop_words |= {"hey","uh","ah","oh","aw", "sorry", "hear", "feeling
                             "achievement", "proud", "situation", "thing", "things", "completely", "certain", "bring", "wave", "nostalgia",
                             "natural", "ups", "downs", "kind", "enjoy", "left", "right", "miss", "missed", "reminiscence", "reminisce", "reminisced", "reminisces", 
                             "reminiscent", "maybe"}
-import spacy_streamlit
 
 load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
