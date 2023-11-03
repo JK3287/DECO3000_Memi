@@ -9,6 +9,10 @@ In order to make the app more accessible, we allowed the chatbot to have an audi
 To specify keywords, we used NLP using the Spacy plugin.
 To summarise conversations, we used LangChain.
 
+FUTURE IMPROVEMENTS (Stuff we can't do now)
+- Talk to multiple people
+- Translate
+
 References: 
 
 CANVA REPORT: 
