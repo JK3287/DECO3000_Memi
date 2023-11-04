@@ -52,7 +52,7 @@ st.markdown(
 .stRadio [role=radiogroup]{
         align-items: center;
         justify-content: center;
-        transform: scale(1.25);
+        transform: scale(2);
     }
 
 </style>
@@ -74,9 +74,11 @@ with st.sidebar:
 if selected == "TALK":
     
     # Header
-    st.title("TALK")
+    st.markdown("<h1 style='font-size: 120px;'>TALK</h1>", unsafe_allow_html=True)
     st.header(" ")
-    st.header("Feel free to talk to an AI chatbot, who will provide you with reminiscence therapy.")
+    st.header(" ")
+    st.markdown("## Feel free to talk to an AI chatbot, who will provide you with reminiscence therapy.", unsafe_allow_html=True)
+    st.header(" ")
     st.header(" ")
     unique_keywords = set()
 
@@ -121,7 +123,7 @@ if selected == "TALK":
     # Extract (NLP)
     def extract_keywords(text):
         doc = nlp(text)
-        keywords = [token.text for token in doc if not token.is_stop and token.is_alpha]
+        keywords = [token.text.lower() for token in doc if not token.is_stop and token.is_alpha]
         unique_keywords.update(keywords)
         return keywords
 
@@ -136,9 +138,10 @@ if selected == "TALK":
     # Display
     def display_chat_summary(chat_log):
         st.header(" ")
-        st.markdown("#### Chat Summary", unsafe_allow_html=True)
+        st.header(" ")
+        st.markdown("## Chat Summary", unsafe_allow_html=True)
         summary = summarize_text(chat_log)
-        st.write(summary)
+        st.markdown(f"<p style='font-size: 24px; font-family: Montserrat;'>{summary}</p>", unsafe_allow_html=True)
 
     # Find friends
     def find_friend(unique_keywords):
@@ -163,25 +166,28 @@ if selected == "TALK":
 
     # Input function
     def get_text():
-        st.markdown("#### Choose input method:", unsafe_allow_html=True)
+        st.markdown("## Choose input method:", unsafe_allow_html=True)
         input_option = st.radio("", ("Text", "Record Voice"))
 
         if input_option == "Text":
             st.header(" ")
-            st.markdown("#### Please type in the box below.", unsafe_allow_html=True)
-            input_text = st.text_input("", " ", key="input")
+            st.header(" ")
+            st.markdown("## Please type in the box below.", unsafe_allow_html=True)
+            st.markdown("<style>input[type='text'] { font-size: 36px; }</style>", unsafe_allow_html=True)
+            user_input = st.text_input("", " ")
+            return user_input  # Return user_input directly when "Text" is selected
         else:
             # Record audio using audio_recorder ONLY WORKS IF TEXT IS FIRST
             st.header(" ")
-            st.markdown("#### Click the 'Record' button to start recording your voice.", unsafe_allow_html=True)
+            st.header(" ")
+            st.markdown("## Click the 'Record' button to start recording your voice.", unsafe_allow_html=True)
 
             col1, col2 = st.columns([2,3])
 
             with col1:
                 st.write("")
-            
+
             with col2:
-            
                 audio_bytes = audio_recorder(
                     text="",
                     recording_color="#ff0000",
@@ -189,7 +195,7 @@ if selected == "TALK":
                     icon_name="microphone-lines",
                     icon_size="8x",
                 )
-            
+
             if audio_bytes:
                 st.success("Audio recording successful!")
 
@@ -200,12 +206,9 @@ if selected == "TALK":
                 # Transcribe the audio using OpenAI's Whisper ASR API
                 with open("recorded_audio.wav", "rb") as f:
                     transcript = openai.Audio.translate(model="whisper-1", file=f, response_format="text")
+                return transcript  # Return transcript when "Record Voice" is selected
 
-                input_text = transcript
-            else:
-                input_text = ""  # Provide an empty input if audio recording is unsuccessful
-
-        return input_text
+        return ""  # Return an empty string if neither option is selected
 
     user_input = get_text()
 
@@ -228,24 +231,36 @@ if selected == "TALK":
 
     # Filter out keywords
     conversation_keywords = [extract_keywords(message) for message in all_user_messages]
+    
     for i in range(len(st.session_state['prompted']) - 1, -1, -1):
-        message(st.session_state["prompted"][i], key=str(i))
-        message(st.session_state['stored'][i], is_user=True, key=str(i) + '_user')
+        message(f'<p style="font-size:24px; font-family: Montserrat;">{st.session_state["prompted"][i]}</p>', allow_html=True, key=str(i))
+        message(f'<p style="font-size:24px; font-family: Montserrat;">{st.session_state["stored"][i]}</p>', allow_html=True, is_user=True, key=str(i) + '_user')
 
     # Display chat summary of all conversations
     display_chat_summary(all_user_messages)
 
     # Display keywords
     st.header(" ")
-    st.markdown("#### Keywords", unsafe_allow_html=True)
-    st.write("Keywords include:", ", ".join(unique_keywords))
+    st.header(" ")
+    st.markdown("## Keywords", unsafe_allow_html=True)
+    st.markdown(
+    f"<p style='font-size: 24px; font-family: Montserrat;'>Keywords include: {', '.join(unique_keywords)}</p>",
+    unsafe_allow_html=True
+)
 
     if potential_friends:
             st.header(" ")
-            st.markdown("#### Potential Friends", unsafe_allow_html=True)
+            st.header(" ")
+            st.markdown("## Potential Friends", unsafe_allow_html=True)
             for friend in potential_friends:
-                st.write(f"**Name**: {friend['Name']}")
-                st.write(f"**Matching Keywords**: {friend['Matching Keywords']}")
+                st.markdown(
+                    f"<p style='font-size: 24px; font-family: Montserrat;'><strong>Name:</strong> {friend['Name']}</p>",
+                    unsafe_allow_html=True
+                )
+                st.markdown(
+                    f"<p style='font-size: 24px; font-family: Montserrat;'><strong>Matching Keywords:</strong> {friend['Matching Keywords']}</p>",
+                    unsafe_allow_html=True
+                )
                 st.subheader(" ")
 
 # CONNECT
