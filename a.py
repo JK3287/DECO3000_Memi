@@ -61,7 +61,6 @@ st.markdown(
 )
 
 # MENU
-
 potential_friends = []
 
 with st.sidebar:
@@ -77,7 +76,10 @@ if selected == "TALK":
     st.markdown("<h1 style='font-size: 120px;'>TALK</h1>", unsafe_allow_html=True)
     st.header(" ")
     st.header(" ")
-    st.markdown("## Feel free to talk to an AI chatbot, who will provide you with reminiscence therapy.", unsafe_allow_html=True)
+    st.markdown(
+    "<h2 style='font-weight: normal;'>Feel free to talk to an <b>AI chatbot</b>, who will provide you with <b>reminiscence</b> therapy.</h2>",
+    unsafe_allow_html=True
+)
     st.header(" ")
     st.header(" ")
     unique_keywords = set()
