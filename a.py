@@ -61,7 +61,9 @@ st.markdown(
 )
 
 # MENU
+
 potential_friends = []
+potential_friends_over_time = []
 
 with st.sidebar:
     selected = option_menu(
@@ -222,6 +224,7 @@ if selected == "TALK":
         unique_keywords.update(user_keywords)
 
         potential_friends = find_friend(unique_keywords)
+        potential_friends_over_time.append(potential_friends)
 
         # Text-to-Speech
         st.audio(text_to_speech(output), format="audio/mp3")
@@ -250,22 +253,24 @@ if selected == "TALK":
     unsafe_allow_html=True
 )
 
-    if potential_friends:
+    if potential_friends_over_time:
             st.header(" ")
             st.header(" ")
             st.markdown("## Potential Friends", unsafe_allow_html=True)
-            for friend in potential_friends:
-                st.markdown(
-                    f"<p style='font-size: 24px; font-family: Montserrat;'><strong>Name:</strong> {friend['Name']}</p>",
-                    unsafe_allow_html=True
-                )
-                st.markdown(
-                    f"<p style='font-size: 24px; font-family: Montserrat;'><strong>Matching Keywords:</strong> {friend['Matching Keywords']}</p>",
-                    unsafe_allow_html=True
-                )
-                st.subheader(" ")
+            for friends_list in potential_friends_over_time:
+                for friend in friends_list:
+                    st.markdown(
+                        f"<p style='font-size: 24px; font-family: Montserrat;'><strong>Name:</strong> {friend['Name']}</p>",
+                        unsafe_allow_html=True
+                    )
+                    st.markdown(
+                        f"<p style='font-size: 24px; font-family: Montserrat;'><strong>Matching Keywords:</strong> {friend['Matching Keywords']}</p>",
+                        unsafe_allow_html=True
+                    )
+    st.subheader(" ")
 
-# CONNECT
+# CONNECT....
+
 #if selected == "CONNECT":
 #    st.header("CONNECT")
 #    st.subheader("Connect with like-minded individuals.")
