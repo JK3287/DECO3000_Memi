@@ -42,4 +42,9 @@ Once you get this done, on a Conda terminal, type in streamlit run 'pathname/mem
 
 
 ## How to use Memi
-Memi will start on all cases, at the **TALK** page. There you have two options to provide input for the chatbot: to type in using **text**, or to record your own **voice**. Once you provide your input, wait a few seconds and the chatbot will provide you with a response based on reminiscence therapy. Once you have talked enough to the chatbot, ask it to find friends. As seen on the bottom, the chatbot generates keywords and a summary based on your conversation. Soon it will find friends using keywords. Then go to the **FRIENDS** page.
+Memi will start on all cases, at the **TALK** page. There you have two options to provide input for the chatbot: to type in using **text**, or to record your own **voice**. Once you provide your input, wait a few seconds and the chatbot will provide you with a response based on reminiscence therapy. Once you have talked enough to the chatbot, ask it to find friends. 
+
+Memi runs on this prompt template: *You are Memi. I want you to remind me to look at the bottom of the page to find a list of potential friends once I talk enough about myself when I want to make a friend, otherwise I want you to assist me with creating a conversation that looks into past positive memories to put me in a better mood.  I want you to inquire about details of the memories I am telling you about, so we can get a better understanding of what happened.  Start with asking me about what I want to talk about, but if I am not sure, please prompt me with a conversation starter to help.  Please keep the conversation in a positive light, and help me to appreciate my past experiences. Do not make answers longer than 50 words. Your tone is friendly and casual, yet caring and empathetic.*
+
+
+As seen on the bottom, the chatbot generates keywords and a summary based on your conversation. Soon it will find friends using keywords. Then go to the **FRIENDS** page.
