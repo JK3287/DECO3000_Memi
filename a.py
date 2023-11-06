@@ -61,7 +61,9 @@ st.markdown(
 )
 
 # MENU
+
 potential_friends = []
+potential_friends_over_time = []
 
 with st.sidebar:
     selected = option_menu(
@@ -95,7 +97,7 @@ if selected == "TALK":
     # Storing entire conversation in the required format of GPT-3.5 in Streamlit session
     if 'full_conversation' not in st.session_state:
         st.session_state['full_conversation'] = [{'role': 'system',
-                                                  'content': 'You are Memi. I want you to assist me with creating a conversation that looks into past positive memories to put me in a better mood.  I want you to inquire about details of the memories I am telling you about, so we can get a better understanding of what happened.  Start with asking me about what I want to talk about, but if I am not sure, please prompt me with a conversation starter to help.  Please keep the conversation in a positive light, and help me to appreciate my past experiences. Whenever I feel lonely, or need to make friends, remind me that I can find suggestions for making friends on the bottom of the page once I talk enough about myself. Do not make answers longer than 50 words. Your tone is friendly and casual, yet caring and empathetic.'}]
+                                                  'content': 'You are Memi. I want you to assist me with creating a conversation that looks into past positive memories to put me in a better mood.  I want you to inquire about details of the memories I am telling you about, so we can get a better understanding of what happened.  Start with asking me about what I want to talk about, but if I am not sure, please prompt me with a conversation starter to help.  Please keep the conversation in a positive light, and help me to appreciate my past experiences.  Do not make answers longer than 50 words. Do not use interjections. Your tone is friendly and casual, yet caring and empathetic.'}]
 
     if 'conversation_keywords' not in st.session_state:
         st.session_state['conversation_keywords'] = []
@@ -219,9 +221,8 @@ if selected == "TALK":
         output = query(st.session_state.full_conversation.append({'role': 'user', 'content': user_input}))
         st.session_state.stored.append(user_input)
         st.session_state.prompted.append(output)
-        unique_keywords.update(user_keywords)
 
-        potential_friends = find_friend(unique_keywords)
+        
 
         # Text-to-Speech
         st.audio(text_to_speech(output), format="audio/mp3")
@@ -238,6 +239,10 @@ if selected == "TALK":
         message(f'<p style="font-size:24px; font-family: Montserrat;">{st.session_state["prompted"][i]}</p>', allow_html=True, key=str(i))
         message(f'<p style="font-size:24px; font-family: Montserrat;">{st.session_state["stored"][i]}</p>', allow_html=True, is_user=True, key=str(i) + '_user')
 
+    unique_keywords.update(user_keywords)
+    potential_friends = find_friend(unique_keywords)
+    potential_friends_over_time.append(potential_friends)
+
     # Display chat summary of all conversations
     display_chat_summary(all_user_messages)
 
@@ -250,22 +255,24 @@ if selected == "TALK":
     unsafe_allow_html=True
 )
 
-    if potential_friends:
+    if potential_friends_over_time:
             st.header(" ")
             st.header(" ")
             st.markdown("## Potential Friends", unsafe_allow_html=True)
-            for friend in potential_friends:
-                st.markdown(
-                    f"<p style='font-size: 24px; font-family: Montserrat;'><strong>Name:</strong> {friend['Name']}</p>",
-                    unsafe_allow_html=True
-                )
-                st.markdown(
-                    f"<p style='font-size: 24px; font-family: Montserrat;'><strong>Matching Keywords:</strong> {friend['Matching Keywords']}</p>",
-                    unsafe_allow_html=True
-                )
-                st.subheader(" ")
+            for friends_list in potential_friends_over_time:
+                for friend in friends_list:
+                    st.markdown(
+                        f"<p style='font-size: 24px; font-family: Montserrat;'><strong>Name:</strong> {friend['Name']}</p>",
+                        unsafe_allow_html=True
+                    )
+                    st.markdown(
+                        f"<p style='font-size: 24px; font-family: Montserrat;'><strong>Matching Keywords:</strong> {friend['Matching Keywords']}</p>",
+                        unsafe_allow_html=True
+                    )
+    st.subheader(" ")
 
-# CONNECT
+# CONNECT....
+
 #if selected == "CONNECT":
 #    st.header("CONNECT")
 #    st.subheader("Connect with like-minded individuals.")
