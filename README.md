@@ -8,7 +8,7 @@ The first page, **TALK** is in the form of a Large Language Model chatbot that u
 The second page, **FRIENDS** is built to host a list of friends that the user has found through a consultation with the chatbot from the TALK page.
 
 ## Setup
-In order to setup Memi, it is recommended that you have the following: an **Integrated Development Environment (IDE)**, **Conda**, an **OpenAI Account** and an **OpenAI API Key**. Once you have the aforementioned components, ensure that you are running the Python code through a Conda terminal. Afterwards, please make sure these are installed through your IDE:
+In order to setup Memi, it is recommended that you have the following: an **Integrated Development Environment (IDE)**, **Conda**, an **OpenAI Account** and an **OpenAI API Key**. Once you have the aforementioned components, ensure that you are running the Python code through a Conda terminal. Afterwards, open the **Memi** folder on your IDE and please make sure these are installed:
 
 ### Streamlit - Simplistic Interface
 * streamlit
@@ -19,6 +19,7 @@ In order to setup Memi, it is recommended that you have the following: an **Inte
 ### OpenAI - Large Language Models
 * openai
 * langchain
+* gtts
 
 ### .env - Hidden Files
 * os
@@ -26,7 +27,7 @@ In order to setup Memi, it is recommended that you have the following: an **Inte
 
 ### Spacy - Natural Language Processing
 * spacy
-* spacy_streamlit
+* pandas
 
 ## Final Steps
 In order to get the program running, please make the following hidden files/folders
