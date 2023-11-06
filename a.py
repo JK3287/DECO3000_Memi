@@ -265,8 +265,7 @@ if selected == "TALK":
                 )
                 st.subheader(" ")
 
-# CONNECT....
-
+# CONNECT
 #if selected == "CONNECT":
 #    st.header("CONNECT")
 #    st.subheader("Connect with like-minded individuals.")
