@@ -294,18 +294,32 @@ if selected == "FRIENDS":
     st.header("FRIENDS")
     st.subheader("Reach out to your newly made friends.")
 
-    # Display all friends added
-    for friend in st.session_state.selected_friends:
-        st.markdown(
-            f"<p style='font-size: 16px; font-family: Montserrat;'><strong>Name:</strong> {friend['Name']}</p>",
-            unsafe_allow_html=True
-        )
-        st.markdown(
-            f"<p style='font-size: 16px; font-family: Montserrat;'><strong>Matching Keywords:</strong> {friend['Matching Keywords']}</p>",
-            unsafe_allow_html=True
-        )
+    # Display all friends added in a grid
+    friends = st.session_state.selected_friends
 
+    # Create a grid layout for the friends
+    for i in range(0, len(friends), 2):
+        columns = st.columns(2)
 
+        for col in columns:
+            if i < len(friends):
+                friend = friends[i]
 
+                # You can use a custom profile picture here
+                emoji_html = "<span style='font-size: 4em;'>😄</span>"
+                col.markdown(emoji_html, unsafe_allow_html=True)
+                col.markdown(
+                    f"<p style='font-size: 24px; font-family: Montserrat;'><strong>{friend['Name']}</strong></p>",
+                    unsafe_allow_html=True
+                )
+                col.markdown(
+                    f"<p style='font-size: 16px; font-family: Montserrat;'><strong>Matching Keywords:</strong> {friend['Matching Keywords']}</p>",
+                    unsafe_allow_html=True
+                )
 
+            i += 1
 
+        # Apply CSS for 50% width
+        col1, col2 = columns
+        col1.markdown("<style>div.css-1l02z8t { width: 50% !important; }</style>", unsafe_allow_html=True)
+        col2.markdown("<style>div.css-1l02z8t { width: 50% !important; }</style>", unsafe_allow_html=True)
