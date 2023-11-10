@@ -32,6 +32,8 @@ nlp.Defaults.stop_words |= {"hey","uh","ah","oh","aw", "sorry", "hear", "feeling
                             "natural", "ups", "downs", "kind", "enjoy", "left", "right", "miss", "missed", "reminiscence", "reminisce", "reminisced", "reminisces", 
                             "reminiscent", "maybe"}
 
+import datetime
+
 load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
@@ -72,7 +74,7 @@ if 'selected_friends' not in st.session_state:
 with st.sidebar:
     selected = option_menu(
         menu_title="Memi",  # required
-        options=["TALK", "FRIENDS"],  # required
+        options=["TALK", "FRIENDS", "CHATLOG"],  # required
     )
 
 # TALK CHATBOT
@@ -283,17 +285,18 @@ if selected == "TALK":
 
     st.subheader(" ")
 
-# CONNECT....
-
-#if selected == "CONNECT":
-#    st.header("CONNECT")
-#    st.subheader("Connect with like-minded individuals.")
-
 # FRIENDS
 if selected == "FRIENDS":
-    st.header("FRIENDS")
-    st.subheader("Reach out to your newly made friends.")
+    st.markdown("<h1 style='font-size: 120px;'>FRIENDS</h1>", unsafe_allow_html=True)
+    st.header(" ")
+    st.header(" ")
+    st.markdown(
+    "<h2 style='font-weight: normal;'><b>Reach</b> out to your newly made <b>friends</b>.</h2>",
+    unsafe_allow_html=True
+)
 
+    st.header(" ")
+    st.header(" ")
     # Display all friends added in a grid
     friends = st.session_state.selected_friends
 
@@ -323,3 +326,11 @@ if selected == "FRIENDS":
         col1, col2 = columns
         col1.markdown("<style>div.css-1l02z8t { width: 50% !important; }</style>", unsafe_allow_html=True)
         col2.markdown("<style>div.css-1l02z8t { width: 50% !important; }</style>", unsafe_allow_html=True)
+if selected == "CHATLOG":
+    st.markdown("<h1 style='font-size: 120px;'>CHATLOG</h1>", unsafe_allow_html=True)
+    st.header(" ")
+    st.header(" ")
+    st.markdown(
+    "<h2 style='font-weight: normal;'>Here is the chatlog.</h2>",
+    unsafe_allow_html=True
+)
