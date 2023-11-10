@@ -297,11 +297,11 @@ if selected == "FRIENDS":
     # Display all friends added
     for friend in st.session_state.selected_friends:
         st.markdown(
-            f"<p style='font-size: 24px; font-family: Montserrat;'><strong>Name:</strong> {friend['Name']}</p>",
+            f"<p style='font-size: 16px; font-family: Montserrat;'><strong>Name:</strong> {friend['Name']}</p>",
             unsafe_allow_html=True
         )
         st.markdown(
-            f"<p style='font-size: 24px; font-family: Montserrat;'><strong>Matching Keywords:</strong> {friend['Matching Keywords']}</p>",
+            f"<p style='font-size: 16px; font-family: Montserrat;'><strong>Matching Keywords:</strong> {friend['Matching Keywords']}</p>",
             unsafe_allow_html=True
         )
 
