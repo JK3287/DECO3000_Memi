@@ -32,8 +32,6 @@ nlp.Defaults.stop_words |= {"hey","uh","ah","oh","aw", "sorry", "hear", "feeling
                             "natural", "ups", "downs", "kind", "enjoy", "left", "right", "miss", "missed", "reminiscence", "reminisce", "reminisced", "reminisces", 
                             "reminiscent", "maybe"}
 
-import datetime
-
 load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
@@ -171,6 +169,18 @@ if selected == "TALK":
         
         return potential_friends
 
+     # Save Chat function
+    def save_chat():
+        saved_chat = {
+            'user_messages': st.session_state.stored.copy(),
+            'bot_responses': st.session_state.prompted.copy(),
+        }
+
+        if 'saved_chats' not in st.session_state:
+            st.session_state.saved_chats = []
+        st.session_state.saved_chats.append(saved_chat)
+        st.success("Chat saved successfully!")
+
     # Initialize the list
     all_user_messages = []
 
@@ -285,6 +295,10 @@ if selected == "TALK":
 
     st.subheader(" ")
 
+    # Add a button to save the chat
+    st.button("Save Chat", on_click=save_chat)
+
+
 # FRIENDS
 if selected == "FRIENDS":
     st.markdown("<h1 style='font-size: 120px;'>FRIENDS</h1>", unsafe_allow_html=True)
@@ -326,11 +340,31 @@ if selected == "FRIENDS":
         col1, col2 = columns
         col1.markdown("<style>div.css-1l02z8t { width: 50% !important; }</style>", unsafe_allow_html=True)
         col2.markdown("<style>div.css-1l02z8t { width: 50% !important; }</style>", unsafe_allow_html=True)
+        
+# CHATLOG
 if selected == "CHATLOG":
     st.markdown("<h1 style='font-size: 120px;'>CHATLOG</h1>", unsafe_allow_html=True)
     st.header(" ")
     st.header(" ")
     st.markdown(
-    "<h2 style='font-weight: normal;'>Here is the chatlog.</h2>",
-    unsafe_allow_html=True
-)
+        "<h2 style='font-weight: normal;'>Here is the chatlog.</h2>",
+        unsafe_allow_html=True
+    )
+
+    # Display saved chats
+    if 'saved_chats' in st.session_state and st.session_state.saved_chats:
+        for idx, saved_chat in enumerate(st.session_state.saved_chats):
+            st.markdown(f"### Chat {idx + 1}")
+
+            # Display user_messages and bot_responses directly
+            for i in range(len(saved_chat['user_messages'])):
+                st.markdown(
+                    f"<p style='font-size: 24px; font-family: Montserrat;'>User: {saved_chat['user_messages'][i]}</p>",
+                    unsafe_allow_html=True
+                )
+                st.markdown(
+                    f"<p style='font-size: 24px; font-family: Montserrat;'>Bot: {saved_chat['bot_responses'][i]}</p>",
+                    unsafe_allow_html=True
+                )
+
+            st.subheader(" ")
