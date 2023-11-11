@@ -260,7 +260,8 @@ if selected == "TALK":
     potential_friends_over_time.append(potential_friends)
 
     # Display chat summary of all conversations
-    display_chat_summary(all_user_messages)
+    chat_summary = summarize_text(all_user_messages)
+    st.session_state['chat_summary'] = chat_summary
 
     # Display keywords
     st.header(" ")
@@ -280,7 +281,7 @@ if selected == "TALK":
             st.markdown(f"### Conversation {i + 1}")
             for friend in friends_list:
                 # Button to add the friend to the "FRIENDS" page
-                if st.button(f"Add {friend['Name']} as a Friend"):
+                if st.button(f"ADD {friend['Name']}"):
                     # Pass the friend's information to the "FRIENDS" page
                     st.session_state.selected_friends.append(friend)
 
@@ -355,15 +356,27 @@ if selected == "CHATLOG":
     if 'saved_chats' in st.session_state and st.session_state.saved_chats:
         for idx, saved_chat in enumerate(st.session_state.saved_chats):
             st.markdown(f"### Chat {idx + 1}")
+            
+            st.header(" ")
+            st.header(" ")
+
+            st.markdown("## Chat Summary", unsafe_allow_html=True)
+
+            st.header(" ")
+            st.header(" ")
+
+            # Display stored chat summary
+            chat_summary = st.session_state.get('chat_summary', '')
+            st.markdown(f"<p style='font-size: 24px; font-family: Montserrat;'>{chat_summary}</p>", unsafe_allow_html=True)
 
             # Display user_messages and bot_responses directly
             for i in range(len(saved_chat['user_messages'])):
                 st.markdown(
-                    f"<p style='font-size: 24px; font-family: Montserrat;'>User: {saved_chat['user_messages'][i]}</p>",
+                    f"<p style='font-size: 24px; font-family: Montserrat;'><b>User:</b> {saved_chat['user_messages'][i]}</p>",
                     unsafe_allow_html=True
                 )
                 st.markdown(
-                    f"<p style='font-size: 24px; font-family: Montserrat;'>Bot: {saved_chat['bot_responses'][i]}</p>",
+                    f"<p style='font-size: 24px; font-family: Montserrat;'><b>Memi:</b> {saved_chat['bot_responses'][i]}</p>",
                     unsafe_allow_html=True
                 )
 
