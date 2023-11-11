@@ -27,5 +27,5 @@ For keyword extraction: https://www.analyticsvidhya.com/blog/2022/01/text-analys
 For Summary: https://blog.streamlit.io/langchain-tutorial-3-build-a-text-summarization-app/
 For personality and emotion detection database: https://github.com/npuliyang/Personality-Detection-MTL/blob/main/GraphMTL.py
 
-CHATGPT (NLP, Summary, STT)
+CHATGPT (NLP, Summary, STT, Structure)
 
