@@ -327,7 +327,7 @@ if selected == "FRIENDS":
                 friend = friends[i]
 
                 # You can use a custom profile picture here
-                col.image("https://i.ibb.co/6nCCgkt/icon-user.png", width=100, use_container_width=True)
+                col.image("https://i.ibb.co/6nCCgkt/icon-user.png", width=100, style={"margin": "auto", "display": "block"})
                 col.markdown(
                     f"<p style='font-size: 24px; font-family: Montserrat;'><strong>{friend['Name']}</strong></p>",
                     unsafe_allow_html=True
