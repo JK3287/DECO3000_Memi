@@ -252,11 +252,11 @@ if selected == "TALK":
     conversation_keywords = [extract_keywords(message) for message in all_user_messages]
     
     for i in range(len(st.session_state['prompted']) - 1, -1, -1):
-        # Bot message with a custom bot icon
-        message(f'<p style="font-size:24px; font-family: Montserrat;">{st.session_state["prompted"][i]}</p>', allow_html=True, avatar="https://i.ibb.co/DgsXZqB/icon-bot.png", key=str(i))
+    # Bot message with a custom bot icon
+        message(f'<p style="font-size:24px; font-family: Montserrat;">{st.session_state["prompted"][i]}</p>', allow_html=True, logo="https://i.ibb.co/DgsXZqB/icon-bot.png", key=str(i))
 
-        # User message with a custom user icon
-        message(f'<p style="font-size:24px; font-family: Montserrat;">{st.session_state["stored"][i]}</p>', allow_html=True, is_user=True, avatar="https://i.ibb.co/xDPbvPR/icon-user.png", key=str(i) + '_user')
+    # User message with a custom user icon
+        message(f'<p style="font-size:24px; font-family: Montserrat;">{st.session_state["stored"][i]}</p>', allow_html=True, is_user=True, logo="https://i.ibb.co/xDPbvPR/icon-user.png", key=str(i) + '_user')
 
     unique_keywords.update(user_keywords)
     potential_friends = find_friend(unique_keywords)
