@@ -327,13 +327,16 @@ if selected == "FRIENDS":
                 friend = friends[i]
 
                 # You can use a custom profile picture here
-                col.image("https://i.ibb.co/6nCCgkt/icon-user.png", width=100, style={"margin": "auto", "display": "block"})
                 col.markdown(
-                    f"<p style='font-size: 24px; font-family: Montserrat;'><strong>{friend['Name']}</strong></p>",
+                    f'<p style="text-align:center;"><img src="https://i.ibb.co/6nCCgkt/icon-user.png" alt="User Icon" width="100"></p>',
                     unsafe_allow_html=True
                 )
                 col.markdown(
-                    f"<p style='font-size: 16px; font-family: Montserrat;'><strong>Matching Keywords:</strong> {friend['Matching Keywords']}</p>",
+                    f"<p style='font-size: 24px; font-family: Montserrat; text-align: center;'><strong>{friend['Name']}</strong></p>",
+                    unsafe_allow_html=True
+                )
+                col.markdown(
+                    f"<p style='font-size: 16px; font-family: Montserrat; text-align: center;'><strong>Matching Keywords:</strong> {friend['Matching Keywords']}</p>",
                     unsafe_allow_html=True
                 )
 
