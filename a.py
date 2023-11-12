@@ -328,7 +328,7 @@ if selected == "FRIENDS":
 
                 # You can use a custom profile picture here
                 col.markdown(
-                    f'<p style="text-align:center;"><img src="https://i.ibb.co/jh79Rwf/memi-face.png" alt="User Icon" width="100"></p>',
+                    f'<p style="text-align:center;"><img src="https://i.ibb.co/wc8cbvv/memi-face.png" alt="User Icon" width="100"></p>',
                     unsafe_allow_html=True
                 )
                 col.markdown(
