@@ -79,11 +79,11 @@ with st.sidebar:
 if selected == "TALK":
     
     # Header
-    st.markdown("<h1 style='font-size: 120px;'>TALK</h1>", unsafe_allow_html=True)
-    st.header(" ")
-    st.header(" ")
+    st.markdown("<h1 style='font-size: 84px;'>MEMI</h1>", unsafe_allow_html=True)
+    st.markdown("<h2 style='font-size: 36px;'>TALK</h1>", unsafe_allow_html=True)
+    st.markdown("<img src='https://i.ibb.co/3Sdk7zr/memi-talk.png' alt='Memi Talk' style='width:50%;'>", unsafe_allow_html=True)
     st.markdown(
-    "<h2 style='font-weight: normal;'>Feel free to talk to an <b>AI chatbot</b>, who will provide you with <b>reminiscence</b> therapy.</h2>",
+    "<h2 style='font-weight: normal;'>Feel free to talk to an <b>AI chatbot</b>, who will provide <b>reminiscence</b> therapy.</h2>",
     unsafe_allow_html=True
 )
     st.header(" ")
@@ -305,9 +305,9 @@ if selected == "TALK":
 
 # FRIENDS
 if selected == "FRIENDS":
-    st.markdown("<h1 style='font-size: 120px;'>FRIENDS</h1>", unsafe_allow_html=True)
-    st.header(" ")
-    st.header(" ")
+    st.markdown("<h1 style='font-size: 84px;'>MEMI</h1>", unsafe_allow_html=True)
+    st.markdown("<h2 style='font-size: 36px;'>FRIENDS</h1>", unsafe_allow_html=True)
+    st.markdown("<img src='https://i.ibb.co/7jMJPLZ/memi-friends.png' alt='Memi Friends' style='width:50%;'>", unsafe_allow_html=True)
     st.markdown(
     "<h2 style='font-weight: normal;'><b>Reach</b> out to your newly made <b>friends</b>.</h2>",
     unsafe_allow_html=True
@@ -328,7 +328,7 @@ if selected == "FRIENDS":
 
                 # You can use a custom profile picture here
                 col.markdown(
-                    f'<p style="text-align:center;"><img src="https://i.ibb.co/6nCCgkt/icon-user.png" alt="User Icon" width="100"></p>',
+                    f'<p style="text-align:center;"><img src="https://i.ibb.co/jh79Rwf/memi-face.png" alt="User Icon" width="100"></p>',
                     unsafe_allow_html=True
                 )
                 col.markdown(
@@ -349,9 +349,9 @@ if selected == "FRIENDS":
         
 # CHATLOG
 if selected == "CHATLOG":
-    st.markdown("<h1 style='font-size: 120px;'>CHATLOG</h1>", unsafe_allow_html=True)
-    st.header(" ")
-    st.header(" ")
+    st.markdown("<h1 style='font-size: 84px;'>MEMI</h1>", unsafe_allow_html=True)
+    st.markdown("<h2 style='font-size: 36px;'>CHATLOG</h1>", unsafe_allow_html=True)
+    st.markdown("<img src='https://i.ibb.co/RSThqGL/memi-chatlog.png' alt='Memi Friends' style='width:50%;'>", unsafe_allow_html=True)
     st.markdown(
         "<h2 style='font-weight: normal;'>Here is the chatlog.</h2>",
         unsafe_allow_html=True
