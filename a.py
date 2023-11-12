@@ -253,10 +253,10 @@ if selected == "TALK":
     
     for i in range(len(st.session_state['prompted']) - 1, -1, -1):
     # Bot message with a custom bot icon
-        message(f'<p style="font-size:24px; font-family: Montserrat;">{st.session_state["prompted"][i]}</p>', allow_html=True, logo="https://i.ibb.co/DgsXZqB/icon-bot.png", key=str(i))
+        message(f'<p style="font-size:24px; font-family: Montserrat;">{st.session_state["prompted"][i]}</p>', allow_html=True, logo="https://i.ibb.co/ykTNV5z/icon-bot.png", key=str(i))
 
     # User message with a custom user icon
-        message(f'<p style="font-size:24px; font-family: Montserrat;">{st.session_state["stored"][i]}</p>', allow_html=True, is_user=True, logo="https://i.ibb.co/xDPbvPR/icon-user.png", key=str(i) + '_user')
+        message(f'<p style="font-size:24px; font-family: Montserrat;">{st.session_state["stored"][i]}</p>', allow_html=True, is_user=True, logo="https://i.ibb.co/6nCCgkt/icon-user.png", key=str(i) + '_user')
 
     unique_keywords.update(user_keywords)
     potential_friends = find_friend(unique_keywords)
@@ -327,8 +327,7 @@ if selected == "FRIENDS":
                 friend = friends[i]
 
                 # You can use a custom profile picture here
-                emoji_html = "<span style='font-size: 4em;'>😄</span>"
-                col.markdown(emoji_html, unsafe_allow_html=True)
+                col.image("https://i.ibb.co/6nCCgkt/icon-user.png", width=100)
                 col.markdown(
                     f"<p style='font-size: 24px; font-family: Montserrat;'><strong>{friend['Name']}</strong></p>",
                     unsafe_allow_html=True
@@ -340,10 +339,10 @@ if selected == "FRIENDS":
 
             i += 1
 
-        # Apply CSS for 50% width
-        col1, col2 = columns
-        col1.markdown("<style>div.css-1l02z8t { width: 50% !important; }</style>", unsafe_allow_html=True)
-        col2.markdown("<style>div.css-1l02z8t { width: 50% !important; }</style>", unsafe_allow_html=True)
+            # Apply CSS for 50% width
+            col1, col2 = columns
+            col1.markdown("<style>div.css-1l02z8t { width: 50% !important; }</style>", unsafe_allow_html=True)
+            col2.markdown("<style>div.css-1l02z8t { width: 50% !important; }</style>", unsafe_allow_html=True)
         
 # CHATLOG
 if selected == "CHATLOG":
