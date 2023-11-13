@@ -1,6 +1,5 @@
 - MEMI: Documentation -
-
-IN THE END PUT KEYS SOMEWHERE UNDETECTABLE!!
+by Veronikah McClelland and Justin Kwon
 
 For our app Memi, we used a plethora of coding and AI resources in order to help the finished product function.
 Firstly, in order to help build a simple chatbot, we used ChatGPT 3.5 for the back-end development.

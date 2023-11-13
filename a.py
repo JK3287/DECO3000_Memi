@@ -262,6 +262,24 @@ if selected == "TALK":
     potential_friends = find_friend(unique_keywords)
     potential_friends_over_time.append(potential_friends)
 
+    # Add a button to save the chat with custom styling
+    st.markdown(
+        """
+        <style>
+            .large-button {
+                width: 200%;
+                padding: 10px; /* You can adjust the padding as needed */
+                font-size: 18px; /* You can adjust the font size as needed */
+            }
+        </style>
+        """
+        , unsafe_allow_html=True
+    )
+
+    st.markdown("<h2 style='font-size: 36px;'>Save Chat</h1>", unsafe_allow_html=True)
+    if st.button("Click to save chat", on_click=save_chat):
+        pass  # Add any additional functionality here if needed
+
     # Display chat summary of all conversations
     chat_summary = summarize_text(all_user_messages)
     st.session_state['chat_summary'] = chat_summary
@@ -298,10 +316,6 @@ if selected == "TALK":
                 )
 
     st.subheader(" ")
-
-    # Add a button to save the chat
-    st.button("Save Chat", on_click=save_chat)
-
 
 # FRIENDS
 if selected == "FRIENDS":
@@ -377,11 +391,11 @@ if selected == "CHATLOG":
             # Display user_messages and bot_responses directly
             for i in range(len(saved_chat['user_messages'])):
                 st.markdown(
-                    f"<p style='font-size: 24px; font-family: Montserrat;'><b>User:</b> {saved_chat['user_messages'][i]}</p>",
+                    f"<p style='font-size: 24px; font-family: Montserrat;'><b>USER:</b> {saved_chat['user_messages'][i]}</p>",
                     unsafe_allow_html=True
                 )
                 st.markdown(
-                    f"<p style='font-size: 24px; font-family: Montserrat;'><b>Memi:</b> {saved_chat['bot_responses'][i]}</p>",
+                    f"<p style='font-size: 24px; font-family: Montserrat;'><b>MEMI:</b> {saved_chat['bot_responses'][i]}</p>",
                     unsafe_allow_html=True
                 )
 
