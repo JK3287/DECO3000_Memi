@@ -25,5 +25,5 @@ NLP: Charis, J. J. (2020, July 9). Simple NLP app with Spacy-Streamlit. JCharisT
 Keyword extraction: Kumar, U. R. (2022, March 15). Text analysis app using spacy, Streamlit, and hugging face spaces. Analytics Vidhya. https://www.analyticsvidhya.com/blog/2022/01/text-analysis-app-using-spacy-streamlit-and-hugging-face-spaces/ 
 Summary: Nantasenamat, C. (2023, June 20). Langchain Tutorial #3: Build a text summarization app. Streamlit. https://blog.streamlit.io/langchain-tutorial-3-build-a-text-summarization-app/ 
 
-ChatGPT (Integration of NLP, Summary, STT and Structure in Code): OpenAI. (2023). ChatGPT (2022, November 30). [Large language model]. https://chat.openai.com/chat
+ChatGPT (Integration of NLP, Summary, ASR and Structure in Code): OpenAI. (2023). ChatGPT (2022, November 30). [Large language model]. https://chat.openai.com/chat
 
