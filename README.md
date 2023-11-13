@@ -20,9 +20,10 @@ In order to setup Memi, it is recommended that you have the following: an **Inte
 * audio_recorder_streamlit
 
 ### OpenAI - Large Language Models
+* io
 * openai
 * langchain
-* gtts
+* gTTS
 
 ### .env - Hidden Files
 * os

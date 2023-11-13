@@ -1,24 +1,28 @@
 # streamlit run '/Users/yungvenuz/Documents/Uni/Year 3 DC/DECO3000/DECO3000_Memi/a.py'
 
-# imports
+# IMPORTS
 
+# Visual Studio - Version 1.76.1
+# Streamlit and relevant plug-ins for website design
+import streamlit as st # Version 1.27.2
+from streamlit_option_menu import option_menu # Version 0.3.6
+from streamlit_chat import message # Version 0.1.1
+from audio_recorder_streamlit import audio_recorder # Version 0.0.8
+
+# .env and relevant plug-ins
+from dotenv import load_dotenv # Version 1.0.0
+import os # Python Version 2.7.18
+
+# OpenAI and relevant plug-ins for Large Language Model
 import openai # Version 0.28.1
-import os
-from dotenv import load_dotenv
-import streamlit as st
-from streamlit_option_menu import option_menu
-from streamlit_chat import message
-from audio_recorder_streamlit import audio_recorder
-
-from gtts import gTTS
-
-from io import BytesIO
 from langchain import OpenAI
 from langchain.docstore.document import Document
 from langchain.chains.summarize import load_summarize_chain
-import pandas as pd
+from gtts import gTTS # Version 2.4.0
+from io import BytesIO # Python Version 2.7.18
 
-import spacy
+# Spacy and relevant plug-ins
+import spacy # Version 3.7.2
 nlp = spacy.load("en_core_web_sm")
 nlp.Defaults.stop_words |= {"hey","uh","ah","oh","aw", "sorry", "hear", "feeling", "way", "reflecting", "positive", "memories", "help", "lift",
                             "spirits", "particular", "memory", "experience", "comes", "mind", "think", "happy", "time", "let", "prompt",
@@ -31,23 +35,26 @@ nlp.Defaults.stop_words |= {"hey","uh","ah","oh","aw", "sorry", "hear", "feeling
                             "achievement", "proud", "situation", "thing", "things", "completely", "certain", "bring", "wave", "nostalgia",
                             "natural", "ups", "downs", "kind", "enjoy", "left", "right", "miss", "missed", "reminiscence", "reminisce", "reminisced", "reminisces", 
                             "reminiscent", "maybe"}
+import pandas as pd # Version 1.5.3
 
-load_dotenv()
+# PROGRAM STARTS HERE!
+
+load_dotenv() # Load OpenAI API Key
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-st.set_page_config(
+st.set_page_config( # Load Streamlit Website
     page_title="Chatbot",
     page_icon=":robot:"
-)
+) 
 
-# CSS SOURCE
-st.markdown(
+
+st.markdown( # CSS Markdown Rules
     """
 <style>
 * {
    font-family: Montserrat;
    text-align: center;
-}
+} 
 
 .stRadio [role=radiogroup]{
         align-items: center;
@@ -58,28 +65,25 @@ st.markdown(
 </style>
 """,
     unsafe_allow_html=True,
-)
+) 
 
-# MENU
+potential_friends = [] # Friends made from an exchange of dialogue
+potential_friends_over_time = [] # Storing friends made along the conversation
+user_keywords = set() # User keywords
 
-potential_friends = []
-potential_friends_over_time = []
-user_keywords = set()
+if 'selected_friends' not in st.session_state: # Ensure friends are selected
+    st.session_state.selected_friends = [] 
 
-if 'selected_friends' not in st.session_state:
-    st.session_state.selected_friends = []
-
-with st.sidebar:
+with st.sidebar: # Menu
     selected = option_menu(
-        menu_title="Memi",  # required
-        options=["TALK", "FRIENDS", "CHATLOG"],  # required
-    )
+        menu_title="Memi",  
+        options=["TALK", "FRIENDS", "CHATLOG"],  
+    ) 
 
-# TALK CHATBOT
+# TALK Page - Communicate with chatbot
 if selected == "TALK":
     
-    # Header
-    st.markdown("<h1 style='font-size: 84px;'>MEMI</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='font-size: 84px;'>MEMI</h1>", unsafe_allow_html=True) # Headers and picture
     st.markdown("<h2 style='font-size: 36px;'>TALK</h1>", unsafe_allow_html=True)
     st.markdown("<img src='https://i.ibb.co/3Sdk7zr/memi-talk.png' alt='Memi Talk' style='width:50%;'>", unsafe_allow_html=True)
     st.markdown(
@@ -90,69 +94,60 @@ if selected == "TALK":
     st.header(" ")
     unique_keywords = set()
 
-    # Storing GPT-3.5 responses for easy retrieval to show on Chatbot UI in Streamlit session
-    if 'prompted' not in st.session_state:
-        st.session_state['prompted'] = []
+    
+    if 'prompted' not in st.session_state: # Storing GPT-3.5 responses
+        st.session_state['prompted'] = [] 
 
-    # Storing user responses for easy retrieval to show on Chatbot UI in Streamlit session
-    if 'stored' not in st.session_state:
-        st.session_state['stored'] = []
+    if 'stored' not in st.session_state: # Storing user responses
+        st.session_state['stored'] = [] 
 
-    # Storing entire conversation in the required format of GPT-3.5 in Streamlit session
-    if 'full_conversation' not in st.session_state:
+    if 'full_conversation' not in st.session_state: # Prompt template
         st.session_state['full_conversation'] = [{'role': 'system',
                                                   'content': 'You are a chatbot named Memi. I want you to remind me, a human, to look at the bottom of the page to find a list of potential friends once I talk enough about myself when I want to make a friend, otherwise I want you to assist me with creating a conversation that looks into past positive memories to put me in a better mood.  I want you to inquire about details of the memories I am telling you about, so we can get a better understanding of what happened.  Start with asking me about what I want to talk about, but if I am not sure, please prompt me with a conversation starter to help.  Please keep the conversation in a positive light, and help me to appreciate my past experiences. Do not make answers longer than 50 words. Your tone is friendly and casual, yet caring and empathetic.'}]
 
-    if 'conversation_keywords' not in st.session_state:
-        st.session_state['conversation_keywords'] = []
+    if 'conversation_keywords' not in st.session_state: # Find keywords
+        st.session_state['conversation_keywords'] = [] 
 
-    # Text to speech function
-    def text_to_speech(text):
+    
+    def text_to_speech(text): # Text to speech function
         audio_bytes = BytesIO()
         tts = gTTS(text=text, lang="en", slow=False)
         tts.write_to_fp(audio_bytes)
         audio_bytes.seek(0)
         return audio_bytes.read()
 
-    # Response function
-    def query(user_text):
+    def query(user_text): # Response function
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=st.session_state.full_conversation
         )
-
         message = response.choices[0].message.content
-        # Adding bot response to the
         st.session_state.full_conversation.append({'role': 'system', 'content': message})
         bot_keywords = extract_keywords(message)
         st.session_state.conversation_keywords.extend(bot_keywords)
         return message
 
-    # Extract (NLP)
-    def extract_keywords(text):
+    def extract_keywords(text): # Extract (NLP)
         doc = nlp(text)
         keywords = [token.text.lower() for token in doc if not token.is_stop and token.is_alpha]
         unique_keywords.update(keywords)
         return keywords
 
-    # Summarize
-    def summarize_text(chat_log):
+    def summarize_text(chat_log): # Summarize
         llm = OpenAI(temperature=0, openai_api_key=os.getenv("OPENAI_API_KEY"))
         docs = [Document(page_content=t) for t in chat_log]
         chain = load_summarize_chain(llm, chain_type='map_reduce')
         summary = chain.run(docs)
         return summary
 
-    # Display
-    def display_chat_summary(chat_log):
+    def display_chat_summary(chat_log): # Display
         st.header(" ")
         st.header(" ")
         st.markdown("## Chat Summary", unsafe_allow_html=True)
         summary = summarize_text(chat_log)
         st.markdown(f"<p style='font-size: 24px; font-family: Montserrat;'>{summary}</p>", unsafe_allow_html=True)
 
-    # Find friends
-    def find_friend(unique_keywords):
+    def find_friend(unique_keywords): # Find friends
         data = pd.read_excel('database.xlsx')
 
         potential_friends = []
@@ -169,8 +164,7 @@ if selected == "TALK":
         
         return potential_friends
 
-     # Save Chat function
-    def save_chat():
+    def save_chat(): # Save Chat function
         saved_chat = {
             'user_messages': st.session_state.stored.copy(),
             'bot_responses': st.session_state.prompted.copy(),
@@ -181,11 +175,9 @@ if selected == "TALK":
         st.session_state.saved_chats.append(saved_chat)
         st.success("Chat saved successfully!")
 
-    # Initialize the list
-    all_user_messages = []
+    all_user_messages = [] # Initialize the list
 
-    # Input function
-    def get_text():
+    def get_text(): # Input function
         st.markdown("## Choose input method:", unsafe_allow_html=True)
         input_option = st.radio("", ("Text", "Record Voice"))
 
@@ -196,8 +188,7 @@ if selected == "TALK":
             st.markdown("<style>input[type='text'] { font-size: 36px; }</style>", unsafe_allow_html=True)
             user_input = st.text_input("", " ")
             return user_input  # Return user_input directly when "Text" is selected
-        else:
-            # Record audio using audio_recorder ONLY WORKS IF TEXT IS FIRST
+        else: # Record audio using audio_recorder ONLY WORKS IF TEXT IS FIRST
             st.header(" ")
             st.header(" ")
             st.markdown("## Click the 'Record' button to start recording your voice.", unsafe_allow_html=True)
@@ -219,18 +210,16 @@ if selected == "TALK":
             if audio_bytes:
                 st.success("Audio recording successful!")
 
-                # Save the recorded audio to a file
-                with open("recorded_audio.wav", "wb") as f:
-                    f.write(audio_bytes)
+                with open("recorded_audio.wav", "wb") as f: 
+                    f.write(audio_bytes) # Save the recorded audio to a file
 
-                # Transcribe the audio using OpenAI's Whisper ASR API
                 with open("recorded_audio.wav", "rb") as f:
-                    transcript = openai.Audio.translate(model="whisper-1", file=f, response_format="text")
+                    transcript = openai.Audio.translate(model="whisper-1", file=f, response_format="text") # Transcribe the audio using OpenAI's Whisper ASR API
                 return transcript  # Return transcript when "Record Voice" is selected
 
         return ""  # Return an empty string if neither option is selected
 
-    user_input = get_text()
+    user_input = get_text() # Obtain text input from user
 
     if user_input:
         user_keywords = extract_keywords(user_input)
@@ -238,32 +227,24 @@ if selected == "TALK":
         st.session_state.stored.append(user_input)
         st.session_state.prompted.append(output)
 
+        st.audio(text_to_speech(output), format="audio/mp3") # Text-to-Speech
+
+    if st.session_state['prompted']: # Store user and bot messages separately
         
-
-        # Text-to-Speech
-        st.audio(text_to_speech(output), format="audio/mp3")
-
-    if st.session_state['prompted']:
-        # Store user and bot messages separately
         all_user_messages = st.session_state['stored']
         all_bot_responses = st.session_state['prompted']
 
-    # Filter out keywords
-    conversation_keywords = [extract_keywords(message) for message in all_user_messages]
+    conversation_keywords = [extract_keywords(message) for message in all_user_messages] # Filter out keywords
     
-    for i in range(len(st.session_state['prompted']) - 1, -1, -1):
-    # Bot message with a custom bot icon
+    for i in range(len(st.session_state['prompted']) - 1, -1, -1): # Messages with icons for bot and user
         message(f'<p style="font-size:24px; font-family: Montserrat;">{st.session_state["prompted"][i]}</p>', allow_html=True, logo="https://i.ibb.co/ykTNV5z/icon-bot.png", key=str(i))
-
-    # User message with a custom user icon
         message(f'<p style="font-size:24px; font-family: Montserrat;">{st.session_state["stored"][i]}</p>', allow_html=True, is_user=True, logo="https://i.ibb.co/6nCCgkt/icon-user.png", key=str(i) + '_user')
 
     unique_keywords.update(user_keywords)
     potential_friends = find_friend(unique_keywords)
     potential_friends_over_time.append(potential_friends)
 
-    # Add a button to save the chat with custom styling
-    st.markdown(
+    st.markdown( # Add a button to save the chat with custom styling
         """
         <style>
             .large-button {
@@ -280,33 +261,33 @@ if selected == "TALK":
     if st.button("Click to save chat", on_click=save_chat):
         pass  # Add any additional functionality here if needed
 
-    # Display chat summary of all conversations
-    chat_summary = summarize_text(all_user_messages)
+    chat_summary = summarize_text(all_user_messages) # Display chat summary of all conversations
     st.session_state['chat_summary'] = chat_summary
+    st.header(" ")
+    st.header(" ")
 
-    # Display keywords
-    st.header(" ")
-    st.header(" ")
-    st.markdown("## Keywords", unsafe_allow_html=True)
+    st.markdown("## Keywords", unsafe_allow_html=True) # Display keywords
     st.markdown(
     f"<p style='font-size: 24px; font-family: Montserrat;'>Keywords include: {', '.join(unique_keywords)}</p>",
     unsafe_allow_html=True
 )
 
-    if potential_friends_over_time:
+    if potential_friends_over_time: # Show potential friends made through the full conversation
+
         st.header(" ")
         st.header(" ")
         st.markdown("## Potential Friends", unsafe_allow_html=True)
 
         for i, friends_list in enumerate(potential_friends_over_time):
+
             st.markdown(f"### Conversation {i + 1}")
+
             for friend in friends_list:
-                # Button to add the friend to the "FRIENDS" page
-                if st.button(f"ADD {friend['Name']}"):
-                    # Pass the friend's information to the "FRIENDS" page
+
+                if st.button(f"ADD {friend['Name']}"): # Button to add the friend to the "FRIENDS" page
                     st.session_state.selected_friends.append(friend)
 
-                st.markdown(
+                st.markdown( # Display name and matching keywords
                     f"<p style='font-size: 24px; font-family: Montserrat;'><strong>Name:</strong> {friend['Name']}</p>",
                     unsafe_allow_html=True
                 )
@@ -314,12 +295,12 @@ if selected == "TALK":
                     f"<p style='font-size: 24px; font-family: Montserrat;'><strong>Matching Keywords:</strong> {friend['Matching Keywords']}</p>",
                     unsafe_allow_html=True
                 )
-
     st.subheader(" ")
 
-# FRIENDS
+# FRIENDS Page - Find friends that were added from a conversation
 if selected == "FRIENDS":
-    st.markdown("<h1 style='font-size: 84px;'>MEMI</h1>", unsafe_allow_html=True)
+
+    st.markdown("<h1 style='font-size: 84px;'>MEMI</h1>", unsafe_allow_html=True) # Headers and picture
     st.markdown("<h2 style='font-size: 36px;'>FRIENDS</h1>", unsafe_allow_html=True)
     st.markdown("<img src='https://i.ibb.co/7jMJPLZ/memi-friends.png' alt='Memi Friends' style='width:50%;'>", unsafe_allow_html=True)
     st.markdown(
