@@ -16,15 +16,14 @@ References:
 
 CANVA REPORT: 
 
-For Chatbot: https://pythonwarriors.com/build-chatbot-using-gpt-4-and-streamlit-in-python/
-For CSS: https://discuss.streamlit.io/t/amend-streamlits-default-colourway-like-on-the-spacy-streamlit-app/4184/6
-For ASR(1): https://pypi.org/project/audio-recorder-streamlit/
-For ASR(2): https://platform.openai.com/docs/guides/speech-to-text
-For gTTS: https://www.youtube.com/watch?v=3FntpyGiYao&t=794s&ab_channel=ClarkMcquiston
-For NLP: https://blog.jcharistech.com/2020/07/09/simple-nlp-app-with-spacy-streamlit/
-For keyword extraction: https://www.analyticsvidhya.com/blog/2022/01/text-analysis-app-using-spacy-streamlit-and-hugging-face-spaces/
-For Summary: https://blog.streamlit.io/langchain-tutorial-3-build-a-text-summarization-app/
-For personality and emotion detection database: https://github.com/npuliyang/Personality-Detection-MTL/blob/main/GraphMTL.py
+Chatbot: Administrator. (2023, April 16). Build chatbot using GPT-4 and Streamlit in python. Python Warriors. https://pythonwarriors.com/build-chatbot-using-gpt-4-and-streamlit-in-python/
+CSS: Wargnier, C. (2020, July 13). Amend Streamlit’s default colourway like on the spacy-streamlit app? Streamlit. https://discuss.streamlit.io/t/amend-streamlits-default-colourway-like-on-the-spacy-streamlit-app/4184/6 
+ASR(1): Leduc, J. (2023, January 25). Audio-recorder-streamlit. PyPI. https://pypi.org/project/audio-recorder-streamlit/ 
+ASR(2): OpenAI. (2023). Speech to text. OpenAI API. https://platform.openai.com/docs/guides/speech-to-text
+gTTS: McQuiston, C. (2023, March 21). Build a powerful text-to-speech Streamlit app with GPT API. YouTube. https://www.youtube.com/watch?v=3FntpyGiYao&amp;t=794s&amp;ab_channel=ClarkMcquiston 
+NLP: Charis, J. J. (2020, July 9). Simple NLP app with Spacy-Streamlit. JCharisTech. https://blog.jcharistech.com/2020/07/09/simple-nlp-app-with-spacy-streamlit/ 
+Keyword extraction: Kumar, U. R. (2022, March 15). Text analysis app using spacy, Streamlit, and hugging face spaces. Analytics Vidhya. https://www.analyticsvidhya.com/blog/2022/01/text-analysis-app-using-spacy-streamlit-and-hugging-face-spaces/ 
+Summary: Nantasenamat, C. (2023, June 20). Langchain Tutorial #3: Build a text summarization app. Streamlit. https://blog.streamlit.io/langchain-tutorial-3-build-a-text-summarization-app/ 
 
-CHATGPT (NLP, Summary, STT, Structure)
+ChatGPT (Integration of NLP, Summary, STT and Structure in Code): OpenAI. (2023). ChatGPT (2022, November 30). [Large language model]. https://chat.openai.com/chat
 
