@@ -2,7 +2,7 @@
 
 # imports
 
-import openai
+import openai # Version 0.28.1
 import os
 from dotenv import load_dotenv
 import streamlit as st
