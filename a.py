@@ -22,6 +22,7 @@ from gtts import gTTS # Version 2.4.0
 from io import BytesIO # Python Version 2.7.18
 
 # Spacy and relevant plug-ins
+# type in 'spacy download en_core_web_sm'
 import spacy # Version 3.7.2
 nlp = spacy.load("en_core_web_sm")
 nlp.Defaults.stop_words |= {"hey","uh","ah","oh","aw", "sorry", "hear", "feeling", "way", "reflecting", "positive", "memories", "help", "lift",
@@ -307,22 +308,19 @@ if selected == "FRIENDS":
     "<h2 style='font-weight: normal;'><b>Reach</b> out to your newly made <b>friends</b>.</h2>",
     unsafe_allow_html=True
 )
-
     st.header(" ")
     st.header(" ")
-    # Display all friends added in a grid
-    friends = st.session_state.selected_friends
+    
+    friends = st.session_state.selected_friends # Display all friends added in a grid
 
-    # Create a grid layout for the friends
-    for i in range(0, len(friends), 2):
+    for i in range(0, len(friends), 2): # Create a grid layout for the friends
         columns = st.columns(2)
 
         for col in columns:
             if i < len(friends):
                 friend = friends[i]
 
-                # You can use a custom profile picture here
-                col.markdown(
+                col.markdown( # You can use a custom profile picture here
                     f'<p style="text-align:center;"><img src="https://i.ibb.co/wc8cbvv/memi-face.png" alt="User Icon" width="100"></p>',
                     unsafe_allow_html=True
                 )
@@ -337,14 +335,14 @@ if selected == "FRIENDS":
 
             i += 1
 
-            # Apply CSS for 50% width
-            col1, col2 = columns
+            col1, col2 = columns # Organise friends in two columns
             col1.markdown("<style>div.css-1l02z8t { width: 50% !important; }</style>", unsafe_allow_html=True)
             col2.markdown("<style>div.css-1l02z8t { width: 50% !important; }</style>", unsafe_allow_html=True)
         
-# CHATLOG
+# CHATLOG Page - Keep a record of your conversation with the chatbot
 if selected == "CHATLOG":
-    st.markdown("<h1 style='font-size: 84px;'>MEMI</h1>", unsafe_allow_html=True)
+
+    st.markdown("<h1 style='font-size: 84px;'>MEMI</h1>", unsafe_allow_html=True) # Headers and picture 
     st.markdown("<h2 style='font-size: 36px;'>CHATLOG</h1>", unsafe_allow_html=True)
     st.markdown("<img src='https://i.ibb.co/RSThqGL/memi-chatlog.png' alt='Memi Friends' style='width:50%;'>", unsafe_allow_html=True)
     st.markdown(
@@ -352,25 +350,21 @@ if selected == "CHATLOG":
         unsafe_allow_html=True
     )
 
-    # Display saved chats
-    if 'saved_chats' in st.session_state and st.session_state.saved_chats:
+    if 'saved_chats' in st.session_state and st.session_state.saved_chats: # Display saved chats
         for idx, saved_chat in enumerate(st.session_state.saved_chats):
             st.markdown(f"### Chat {idx + 1}")
             
             st.header(" ")
             st.header(" ")
 
-            st.markdown("## Chat Summary", unsafe_allow_html=True)
+            st.markdown("## Chat Summary", unsafe_allow_html=True) # Show chat summary
 
             st.header(" ")
             st.header(" ")
-
-            # Display stored chat summary
             chat_summary = st.session_state.get('chat_summary', '')
             st.markdown(f"<p style='font-size: 24px; font-family: Montserrat;'>{chat_summary}</p>", unsafe_allow_html=True)
 
-            # Display user_messages and bot_responses directly
-            for i in range(len(saved_chat['user_messages'])):
+            for i in range(len(saved_chat['user_messages'])): # Display user_messages and bot_responses directly
                 st.markdown(
                     f"<p style='font-size: 24px; font-family: Montserrat;'><b>USER:</b> {saved_chat['user_messages'][i]}</p>",
                     unsafe_allow_html=True
