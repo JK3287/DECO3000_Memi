@@ -18,7 +18,7 @@ import os # Python Version 2.7.18
 
 # OpenAI and relevant plug-ins for Large Language Model
 import openai # Version 0.28.1
-from langchain import OpenAI
+from langchain.llms import OpenAI
 from langchain.docstore.document import Document
 from langchain.chains.summarize import load_summarize_chain
 from gtts import gTTS # Version 2.4.0
@@ -88,6 +88,13 @@ with st.sidebar: # Menu
         options=["TALK", "FRIENDS", "CHATLOG"],  
     ) 
 
+def summarize_text(chat_log): # Summarize
+        llm = OpenAI(temperature=0, openai_api_key=os.getenv("OPENAI_API_KEY"))
+        docs = [Document(page_content=t) for t in chat_log]
+        chain = load_summarize_chain(llm, chain_type='map_reduce')
+        summary = chain.run(docs)
+        return summary
+
 # TALK Page - Communicate with chatbot
 if selected == "TALK":
     
@@ -127,22 +134,18 @@ if selected == "TALK":
         )
         message = response.choices[0].message.content
         st.session_state.full_conversation.append({'role': 'system', 'content': message})
-        bot_keywords = extract_keywords(message)
+        bot_keywords = extract_keywords(message, 'bot')
         st.session_state.conversation_keywords.extend(bot_keywords)
         return message
 
-    def extract_keywords(text): # Extract (NLP)
-        doc = nlp(text)
-        keywords = [token.text.lower() for token in doc if not token.is_stop and token.is_alpha]
-        unique_keywords.update(keywords)
-        return keywords
-
-    def summarize_text(chat_log): # Summarize
-        llm = OpenAI(temperature=0, openai_api_key=os.getenv("OPENAI_API_KEY"))
-        docs = [Document(page_content=t) for t in chat_log]
-        chain = load_summarize_chain(llm, chain_type='map_reduce')
-        summary = chain.run(docs)
-        return summary
+    def extract_keywords(text, role):
+        if role == 'user':
+            doc = nlp(text)
+            keywords = [token.text.lower() for token in doc if not token.is_stop and token.is_alpha]
+            unique_keywords.update(keywords)
+            return keywords
+        else:
+            return []
 
     def display_chat_summary(chat_log): # Display
         st.header(" ")
@@ -167,16 +170,22 @@ if selected == "TALK":
                 })
         
         return potential_friends
+    
+    if 'last_saved_index' not in st.session_state:
+        st.session_state.last_saved_index = 0
 
-    def save_chat(): # Save Chat function
+    def save_chat():
+        last_saved_index = st.session_state.last_saved_index
         saved_chat = {
-            'user_messages': st.session_state.stored.copy(),
-            'bot_responses': st.session_state.prompted.copy(),
+            'user_messages': st.session_state.stored[last_saved_index:],
+            'bot_responses': st.session_state.prompted[last_saved_index:],
         }
 
         if 'saved_chats' not in st.session_state:
             st.session_state.saved_chats = []
+    
         st.session_state.saved_chats.append(saved_chat)
+        st.session_state.last_saved_index = len(st.session_state.stored)
         st.success("Chat saved successfully!")
 
     all_user_messages = [] # Initialize the list
@@ -226,7 +235,7 @@ if selected == "TALK":
     user_input = get_text() # Obtain text input from user
 
     if user_input:
-        user_keywords = extract_keywords(user_input)
+        user_keywords = extract_keywords(user_input, 'user')
         output = query(st.session_state.full_conversation.append({'role': 'user', 'content': user_input}))
         st.session_state.stored.append(user_input)
         st.session_state.prompted.append(output)
@@ -238,9 +247,15 @@ if selected == "TALK":
         all_user_messages = st.session_state['stored']
         all_bot_responses = st.session_state['prompted']
 
-    conversation_keywords = [extract_keywords(message) for message in all_user_messages] # Filter out keywords
+    conversation_keywords = [extract_keywords(message, 'user') for message in all_user_messages] # Filter out keywords
     
-    for i in range(len(st.session_state['prompted']) - 1, -1, -1): # Messages with icons for bot and user
+    for i in range(len(st.session_state['prompted']) - 1, -1, -1):
+        user_message = st.session_state["stored"][i]
+        bot_response = st.session_state["prompted"][i]
+
+        user_keywords = extract_keywords(user_message, 'user')
+        bot_keywords = extract_keywords(bot_response, 'bot')
+
         message(f'<p style="font-size:24px; font-family: Montserrat;">{st.session_state["prompted"][i]}</p>', allow_html=True, logo="https://i.ibb.co/ykTNV5z/icon-bot.png", key=str(i))
         message(f'<p style="font-size:24px; font-family: Montserrat;">{st.session_state["stored"][i]}</p>', allow_html=True, is_user=True, logo="https://i.ibb.co/6nCCgkt/icon-user.png", key=str(i) + '_user')
 
@@ -362,20 +377,23 @@ if selected == "CHATLOG":
     st.header(" ")
     st.header(" ")
 
-    if 'saved_chats' in st.session_state and st.session_state.saved_chats: # Display saved chats
+    if 'saved_chats' in st.session_state and st.session_state.saved_chats:
         for idx, saved_chat in enumerate(st.session_state.saved_chats):
             st.markdown(f"## Chat {idx + 1}")
-            st.markdown("### Chat Summary", unsafe_allow_html=True) # Show chat summary
+            st.markdown("### Chat Summary", unsafe_allow_html=True)  # Show chat summary
 
             st.header(" ")
-            chat_summary = st.session_state.get('chat_summary', '')
+        
+            # Extract chat summary based on the current saved chat
+            chat_summary = summarize_text(saved_chat['user_messages'])
             st.markdown(f"<p style='font-size: 24px; font-family: Montserrat;'>{chat_summary}</p>", unsafe_allow_html=True)
 
             st.header(" ")
             st.header(" ")
 
-            for i in range(len(saved_chat['user_messages'])): # Display user_messages and bot_responses directly
-                st.markdown("<h2 style='font-size: 36px;'>USER:</h2>", unsafe_allow_html=True)
+            for i in range(len(saved_chat['user_messages'])):
+                # Display user_messages and bot_responses directly
+                st.markdown("<h3 style='font-size: 24px;'>USER:</h3>", unsafe_allow_html=True)
                 st.markdown(
                     f"<p style='text-align:center;'><img src='https://i.ibb.co/vzKbVCv/user-circle.png' alt='User Icon' width='100'></p>",
                     unsafe_allow_html=True
@@ -384,7 +402,9 @@ if selected == "CHATLOG":
                     f"<p style='font-size: 24px; font-family: Montserrat; text-align: center;'>{saved_chat['user_messages'][i]}</p>",
                     unsafe_allow_html=True
                 )
-                st.markdown("<h2 style='font-size: 36px;'>MEMI:</h2>", unsafe_allow_html=True)
+                st.header(" ")
+
+                st.markdown("<h3 style='font-size: 24px;'>MEMI:</h3>", unsafe_allow_html=True)
                 st.markdown(
                     f"<p style='text-align:center;'><img src='https://i.ibb.co/TwRV1hf/bot-circle.png' alt='Bot Icon' width='100'></p>",
                     unsafe_allow_html=True
@@ -393,5 +413,6 @@ if selected == "CHATLOG":
                     f"<p style='font-size: 24px; font-family: Montserrat; text-align: center;'>{saved_chat['bot_responses'][i]}</p>",
                     unsafe_allow_html=True
                 )
+                st.header(" ")
 
             st.header(" ")
