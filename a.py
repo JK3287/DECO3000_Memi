@@ -276,9 +276,18 @@ if selected == "TALK":
         , unsafe_allow_html=True
     )
 
-    st.markdown("<h2 style='font-size: 36px;'>Save Chat</h1>", unsafe_allow_html=True)
-    if st.button("Click to **save** your **conversation** on **CHATLOG**", on_click=save_chat):
-        pass  # Add any additional functionality here if needed
+    # Radio button for saving chat
+    save_option = st.radio("Choose an option:", ("Save Chat", "Reset Chat"))
+    
+    if save_option == "Save Chat":
+        if st.button("Click to save your conversation on CHATLOG", on_click=save_chat):
+            pass  # Add any additional functionality here if needed
+    elif save_option == "Reset Chat":
+        st.warning("This will reset all messages on the TALK page. Are you sure?")
+        if st.button("Click to reset chat messages", key="reset_chat"):
+            st.session_state.stored = []  # Reset stored user messages
+            st.session_state.prompted = []  # Reset prompted bot responses
+            st.session_state.full_conversation = [{'role': 'system', 'content': 'You are a chatbot named Memi...'}]  # Reset full conversation
 
     chat_summary = summarize_text(all_user_messages) # Display chat summary of all conversations
     st.session_state['chat_summary'] = chat_summary
@@ -375,10 +384,10 @@ if selected == "CHATLOG":
     )
 
     st.header(" ")
-    st.header(" ")
 
     if 'saved_chats' in st.session_state and st.session_state.saved_chats:
-        for idx, saved_chat in enumerate(st.session_state.saved_chats):
+        for idx, saved_chat in reversed(list(enumerate(st.session_state.saved_chats))):
+            st.header("----------------------")
             st.markdown(f"## Chat {idx + 1}")
             st.markdown("### Chat Summary", unsafe_allow_html=True)  # Show chat summary
 
@@ -388,7 +397,6 @@ if selected == "CHATLOG":
             chat_summary = summarize_text(saved_chat['user_messages'])
             st.markdown(f"<p style='font-size: 24px; font-family: Montserrat;'>{chat_summary}</p>", unsafe_allow_html=True)
 
-            st.header(" ")
             st.header(" ")
 
             for i in range(len(saved_chat['user_messages'])):
@@ -413,6 +421,5 @@ if selected == "CHATLOG":
                     f"<p style='font-size: 24px; font-family: Montserrat; text-align: center;'>{saved_chat['bot_responses'][i]}</p>",
                     unsafe_allow_html=True
                 )
-                st.header(" ")
 
             st.header(" ")
