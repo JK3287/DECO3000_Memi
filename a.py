@@ -1,5 +1,8 @@
 # streamlit run '/Users/yungvenuz/Documents/Uni/Year 3 DC/DECO3000/DECO3000_Memi/a.py'
 
+# I like pancakes fishing and window shopping
+# I also fear graduation
+
 # IMPORTS
 
 # Visual Studio - Version 1.76.1
@@ -72,6 +75,10 @@ potential_friends = [] # Friends made from an exchange of dialogue
 potential_friends_over_time = [] # Storing friends made along the conversation
 user_keywords = set() # User keywords
 
+if 'full_conversation' not in st.session_state: # Prompt template
+        st.session_state['full_conversation'] = [{'role': 'system',
+                                                  'content': 'You are a chatbot named Memi. I want you to remind me, a human, to look at the bottom of the page to find a list of potential friends once I talk enough about myself when I want to make a friend, otherwise I want you to assist me with creating a conversation that looks into past positive memories to put me in a better mood.  I want you to inquire about details of the memories I am telling you about, so we can get a better understanding of what happened.  Start with asking me about what I want to talk about, but if I am not sure, please prompt me with a conversation starter to help.  Please keep the conversation in a positive light, and help me to appreciate my past experiences. Do not make answers longer than 50 words. Your tone is friendly and casual, yet caring and empathetic.'}]
+        
 if 'selected_friends' not in st.session_state: # Ensure friends are selected
     st.session_state.selected_friends = [] 
 
@@ -85,7 +92,7 @@ with st.sidebar: # Menu
 if selected == "TALK":
     
     st.markdown("<h1 style='font-size: 84px;'>MEMI</h1>", unsafe_allow_html=True) # Headers and picture
-    st.markdown("<h2 style='font-size: 36px;'>TALK</h1>", unsafe_allow_html=True)
+    st.markdown("<h2 style='font-size: 36px;'>- TALK -</h2>", unsafe_allow_html=True)
     st.markdown("<img src='https://i.ibb.co/3Sdk7zr/memi-talk.png' alt='Memi Talk' style='width:50%;'>", unsafe_allow_html=True)
     st.markdown(
     "<h2 style='font-weight: normal;'>Feel free to talk to an <b>AI chatbot</b>, who will provide <b>reminiscence</b> therapy.</h2>",
@@ -101,10 +108,6 @@ if selected == "TALK":
 
     if 'stored' not in st.session_state: # Storing user responses
         st.session_state['stored'] = [] 
-
-    if 'full_conversation' not in st.session_state: # Prompt template
-        st.session_state['full_conversation'] = [{'role': 'system',
-                                                  'content': 'You are a chatbot named Memi. I want you to remind me, a human, to look at the bottom of the page to find a list of potential friends once I talk enough about myself when I want to make a friend, otherwise I want you to assist me with creating a conversation that looks into past positive memories to put me in a better mood.  I want you to inquire about details of the memories I am telling you about, so we can get a better understanding of what happened.  Start with asking me about what I want to talk about, but if I am not sure, please prompt me with a conversation starter to help.  Please keep the conversation in a positive light, and help me to appreciate my past experiences. Do not make answers longer than 50 words. Your tone is friendly and casual, yet caring and empathetic.'}]
 
     if 'conversation_keywords' not in st.session_state: # Find keywords
         st.session_state['conversation_keywords'] = [] 
@@ -259,7 +262,7 @@ if selected == "TALK":
     )
 
     st.markdown("<h2 style='font-size: 36px;'>Save Chat</h1>", unsafe_allow_html=True)
-    if st.button("Click to save chat", on_click=save_chat):
+    if st.button("Click to **save** your **conversation** on **CHATLOG**", on_click=save_chat):
         pass  # Add any additional functionality here if needed
 
     chat_summary = summarize_text(all_user_messages) # Display chat summary of all conversations
@@ -280,13 +283,8 @@ if selected == "TALK":
         st.markdown("## Potential Friends", unsafe_allow_html=True)
 
         for i, friends_list in enumerate(potential_friends_over_time):
-
-            st.markdown(f"### Conversation {i + 1}")
-
+            
             for friend in friends_list:
-
-                if st.button(f"ADD {friend['Name']}"): # Button to add the friend to the "FRIENDS" page
-                    st.session_state.selected_friends.append(friend)
 
                 st.markdown( # Display name and matching keywords
                     f"<p style='font-size: 24px; font-family: Montserrat;'><strong>Name:</strong> {friend['Name']}</p>",
@@ -296,31 +294,38 @@ if selected == "TALK":
                     f"<p style='font-size: 24px; font-family: Montserrat;'><strong>Matching Keywords:</strong> {friend['Matching Keywords']}</p>",
                     unsafe_allow_html=True
                 )
+
+                if st.button(f"Click to add **{friend['Name']}** as a friend"): # Button to add the friend to the "FRIENDS" page
+                    st.session_state.selected_friends.append(friend)
+                st.subheader(" ")
+
     st.subheader(" ")
 
 # FRIENDS Page - Find friends that were added from a conversation
 if selected == "FRIENDS":
 
-    st.markdown("<h1 style='font-size: 84px;'>MEMI</h1>", unsafe_allow_html=True) # Headers and picture
+    st.markdown("<h1 style='font-size: 84px;'>MEMI</h1>", unsafe_allow_html=True)  # Headers and picture
     st.markdown("<h2 style='font-size: 36px;'>FRIENDS</h1>", unsafe_allow_html=True)
     st.markdown("<img src='https://i.ibb.co/7jMJPLZ/memi-friends.png' alt='Memi Friends' style='width:50%;'>", unsafe_allow_html=True)
     st.markdown(
-    "<h2 style='font-weight: normal;'><b>Reach</b> out to your newly made <b>friends</b>.</h2>",
-    unsafe_allow_html=True
-)
+        "<h2 style='font-weight: normal;'><b>Reach</b> out to your newly made <b>friends</b>.</h2>",
+        unsafe_allow_html=True
+    )
     st.header(" ")
     st.header(" ")
-    
-    friends = st.session_state.selected_friends # Display all friends added in a grid
 
-    for i in range(0, len(friends), 2): # Create a grid layout for the friends
+    friends = st.session_state.selected_friends  # Display all friends added in a grid
+
+    i = 0  # Reset i before starting the loop
+
+    for i in range(0, len(friends), 2):  # Create a grid layout for the friends
         columns = st.columns(2)
 
         for col in columns:
             if i < len(friends):
                 friend = friends[i]
 
-                col.markdown( # You can use a custom profile picture here
+                col.markdown(  # You can use a custom profile picture here
                     f'<p style="text-align:center;"><img src="https://i.ibb.co/wc8cbvv/memi-face.png" alt="User Icon" width="100"></p>',
                     unsafe_allow_html=True
                 )
@@ -332,46 +337,61 @@ if selected == "FRIENDS":
                     f"<p style='font-size: 16px; font-family: Montserrat; text-align: center;'><strong>Matching Keywords:</strong> {friend['Matching Keywords']}</p>",
                     unsafe_allow_html=True
                 )
+                st.header(" ")
 
-            i += 1
+            i += 1  # Move the incrementation inside the if block to avoid unnecessary increments
 
-            col1, col2 = columns # Organise friends in two columns
-            col1.markdown("<style>div.css-1l02z8t { width: 50% !important; }</style>", unsafe_allow_html=True)
-            col2.markdown("<style>div.css-1l02z8t { width: 50% !important; }</style>", unsafe_allow_html=True)
+    if i % 2 != 0:  # Check if there's an odd number of friends to display
+        st.columns([st.empty(), st.empty()])  # Add an empty column to maintain the layout
+
         
 # CHATLOG Page - Keep a record of your conversation with the chatbot
 if selected == "CHATLOG":
 
+    st.header(" ")
+    st.header(" ")
+
     st.markdown("<h1 style='font-size: 84px;'>MEMI</h1>", unsafe_allow_html=True) # Headers and picture 
-    st.markdown("<h2 style='font-size: 36px;'>CHATLOG</h1>", unsafe_allow_html=True)
+    st.markdown("<h2 style='font-size: 36px;'>- CHATLOG -</h1>", unsafe_allow_html=True)
     st.markdown("<img src='https://i.ibb.co/RSThqGL/memi-chatlog.png' alt='Memi Friends' style='width:50%;'>", unsafe_allow_html=True)
     st.markdown(
         "<h2 style='font-weight: normal;'>Here is the chatlog.</h2>",
         unsafe_allow_html=True
     )
 
+    st.header(" ")
+    st.header(" ")
+
     if 'saved_chats' in st.session_state and st.session_state.saved_chats: # Display saved chats
         for idx, saved_chat in enumerate(st.session_state.saved_chats):
-            st.markdown(f"### Chat {idx + 1}")
-            
-            st.header(" ")
-            st.header(" ")
+            st.markdown(f"## Chat {idx + 1}")
+            st.markdown("### Chat Summary", unsafe_allow_html=True) # Show chat summary
 
-            st.markdown("## Chat Summary", unsafe_allow_html=True) # Show chat summary
-
-            st.header(" ")
             st.header(" ")
             chat_summary = st.session_state.get('chat_summary', '')
             st.markdown(f"<p style='font-size: 24px; font-family: Montserrat;'>{chat_summary}</p>", unsafe_allow_html=True)
 
+            st.header(" ")
+            st.header(" ")
+
             for i in range(len(saved_chat['user_messages'])): # Display user_messages and bot_responses directly
+                st.markdown("<h2 style='font-size: 36px;'>USER:</h2>", unsafe_allow_html=True)
                 st.markdown(
-                    f"<p style='font-size: 24px; font-family: Montserrat;'><b>USER:</b> {saved_chat['user_messages'][i]}</p>",
+                    f"<p style='text-align:center;'><img src='https://i.ibb.co/vzKbVCv/user-circle.png' alt='User Icon' width='100'></p>",
                     unsafe_allow_html=True
                 )
                 st.markdown(
-                    f"<p style='font-size: 24px; font-family: Montserrat;'><b>MEMI:</b> {saved_chat['bot_responses'][i]}</p>",
+                    f"<p style='font-size: 24px; font-family: Montserrat; text-align: center;'>{saved_chat['user_messages'][i]}</p>",
+                    unsafe_allow_html=True
+                )
+                st.markdown("<h2 style='font-size: 36px;'>MEMI:</h2>", unsafe_allow_html=True)
+                st.markdown(
+                    f"<p style='text-align:center;'><img src='https://i.ibb.co/TwRV1hf/bot-circle.png' alt='Bot Icon' width='100'></p>",
+                    unsafe_allow_html=True
+                )
+                st.markdown(
+                    f"<p style='font-size: 24px; font-family: Montserrat; text-align: center;'>{saved_chat['bot_responses'][i]}</p>",
                     unsafe_allow_html=True
                 )
 
-            st.subheader(" ")
+            st.header(" ")
