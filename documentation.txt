@@ -12,10 +12,7 @@ FUTURE IMPROVEMENTS (Stuff we can't do now)
 - Talk to multiple people
 - Translate
 
-References: 
-
-CANVA REPORT: 
-
+CODING REFERENCES: 
 Chatbot: Administrator. (2023, April 16). Build chatbot using GPT-4 and Streamlit in python. Python Warriors. https://pythonwarriors.com/build-chatbot-using-gpt-4-and-streamlit-in-python/
 CSS: Wargnier, C. (2020, July 13). Amend Streamlit’s default colourway like on the spacy-streamlit app? Streamlit. https://discuss.streamlit.io/t/amend-streamlits-default-colourway-like-on-the-spacy-streamlit-app/4184/6 
 ASR(1): Leduc, J. (2023, January 25). Audio-recorder-streamlit. PyPI. https://pypi.org/project/audio-recorder-streamlit/ 
@@ -26,4 +23,10 @@ Keyword extraction: Kumar, U. R. (2022, March 15). Text analysis app using spacy
 Summary: Nantasenamat, C. (2023, June 20). Langchain Tutorial #3: Build a text summarization app. Streamlit. https://blog.streamlit.io/langchain-tutorial-3-build-a-text-summarization-app/ 
 
 ChatGPT (Integration of NLP, Summary, ASR and Structure in Code): OpenAI. (2023). ChatGPT (2022, November 30). [Large language model]. https://chat.openai.com/chat
+
+REPORT REFERENCES:
+Neves, B. B., &amp; Sanders, S. (2020, April 6). There’s another silent killer in our midst and older Australians are particularly vulnerable. The coronavirus is a disaster for lonely older Australians. We can help ease their pain in small ways - ABC News. https://www.abc.net.au/news/2020-04-05/coronavirus-is-a-disaster-for-lonely-older-australians/12114034healthier and happier lives.
+De Leo, D. (2022). Late-life suicide in an Aging World. Nature Aging, 2(1), 7–12. https://doi.org/10.1038/s43587-021-00160-1
+
+
 
