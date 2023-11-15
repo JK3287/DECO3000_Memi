@@ -1,0 +1,31 @@
+- MEMI: Documentation -
+by Veronikah McClelland and Justin Kwon
+
+For our app Memi, we used a plethora of coding and AI resources in order to help the finished product function.
+Firstly, in order to help build a simple chatbot, we used ChatGPT 3.5 for the back-end development.
+For front-end development we used Streamlit, as it is an effective tool in regard to building websites under a short amount of time.
+For Automatic Speech Recognition (ASR), we used Audio Recorder Streamlit to take in input, and OpenAI's Whisper model to decode it.
+In order to make the app more accessible, we allowed the chatbot to have an audio feature to speak through the Google Text-to-Speech (gTTS) plugin.
+To specify keywords, we used Natural Language Processing (NLP) using the Spacy plugin.
+To summarise conversations, we used LangChain.
+Finally, for Memi to implement sample data, we used Pandas, which serves data analysis.
+
+CODING REFERENCES: 
+Chatbot: Administrator. (2023, April 16). Build chatbot using GPT-4 and Streamlit in python. Python Warriors. https://pythonwarriors.com/build-chatbot-using-gpt-4-and-streamlit-in-python/
+CSS: Wargnier, C. (2020, July 13). Amend Streamlit’s default colourway like on the spacy-streamlit app? Streamlit. https://discuss.streamlit.io/t/amend-streamlits-default-colourway-like-on-the-spacy-streamlit-app/4184/6 
+ASR(1): Leduc, J. (2023, January 25). Audio-recorder-streamlit. PyPI. https://pypi.org/project/audio-recorder-streamlit/ 
+ASR(2): OpenAI. (2023). Speech to text. OpenAI API. https://platform.openai.com/docs/guides/speech-to-text
+gTTS: McQuiston, C. (2023, March 21). Build a powerful text-to-speech Streamlit app with GPT API. YouTube. https://www.youtube.com/watch?v=3FntpyGiYao&amp;t=794s&amp;ab_channel=ClarkMcquiston 
+NLP: Charis, J. J. (2020, July 9). Simple NLP app with Spacy-Streamlit. JCharisTech. https://blog.jcharistech.com/2020/07/09/simple-nlp-app-with-spacy-streamlit/ 
+Keyword extraction: Kumar, U. R. (2022, March 15). Text analysis app using spacy, Streamlit, and hugging face spaces. Analytics Vidhya. https://www.analyticsvidhya.com/blog/2022/01/text-analysis-app-using-spacy-streamlit-and-hugging-face-spaces/ 
+LangChain: Nantasenamat, C. (2023, June 20). Langchain Tutorial #3: Build a text summarization app. Streamlit. https://blog.streamlit.io/langchain-tutorial-3-build-a-text-summarization-app/ 
+Pandas: pandas. (2023). pandas.read_excel. pandas. https://pandas.pydata.org/docs/reference/api/pandas.read_excel.html 
+
+ChatGPT (Integration of NLP, Summary, ASR and Structure in Code): OpenAI. (2023). ChatGPT (2022, November 30). [Large language model]. https://chat.openai.com/chat
+
+REPORT REFERENCES:
+Neves, B. B., &amp; Sanders, S. (2020, April 6). There’s another silent killer in our midst and older Australians are particularly vulnerable. The coronavirus is a disaster for lonely older Australians. We can help ease their pain in small ways - ABC News. https://www.abc.net.au/news/2020-04-05/coronavirus-is-a-disaster-for-lonely-older-australians/12114034healthier and happier lives.
+De Leo, D. (2022). Late-life suicide in an Aging World. Nature Aging, 2(1), 7–12. https://doi.org/10.1038/s43587-021-00160-1
+
+
+
