@@ -1,10 +1,11 @@
-# Veronikah's pathname: streamlit run '/Users/vmcclelland/Desktop/Less Stupid Uni Stuff/Third Year Sem 2/Designing Intelligent Systems/memi/memi_main.py'
-# Justin's pathname: streamlit run '/Users/yungvenuz/Documents/Uni/Year 3 DC/DECO3000/DECO3000_Memi/memi_main.py'
+# streamlit run '/Users/yungvenuz/Documents/Uni/Year 3 DC/DECO3000/DECO3000_Memi/A5_jkwo3287_vmcc7551_Memi_Code.py'
 
-# streamlit run '/Users/yungvenuz/Documents/Uni/Year 3 DC/DECO3000/DECO3000_Memi/a.py'
+# MEMI by Veronikah McClelland and Justin Kwon
 # IMPORTS
 
 # Visual Studio - Version 1.76.1
+# Conda 23.9.0
+# Python 3.11
 # Streamlit and relevant plug-ins for website design
 import streamlit as st # Version 1.27.2
 from streamlit_option_menu import option_menu # Version 0.3.6
@@ -17,7 +18,7 @@ import os # Python Version 2.7.18
 
 # OpenAI and relevant plug-ins for Large Language Model
 import openai # Version 0.28.1
-from langchain.llms import OpenAI
+from langchain.llms import OpenAI # Version 0.0.329
 from langchain.docstore.document import Document
 from langchain.chains.summarize import load_summarize_chain
 from gtts import gTTS # Version 2.4.0
@@ -283,7 +284,7 @@ if selected == "TALK":
 
     conversation_keywords = [extract_keywords(message, 'user') for message in all_user_messages]  # Filter out keywords
 
-    expander_expanded = st.expander("SHOW/HIDE", expanded=True)
+    expander_expanded = st.expander("SHOW/HIDE", expanded=True) # Drop down for visibility
     with expander_expanded:
         for i in range(len(st.session_state['prompted']) - 1, -1, -1):
             user_message = st.session_state["stored"][i]
@@ -419,7 +420,7 @@ if selected == "CHATLOG":
     if 'saved_chats' in st.session_state and st.session_state.saved_chats:
         for idx, saved_chat in reversed(list(enumerate(st.session_state.saved_chats))):
             st.markdown(f"<h2 style='font-size: 36px;'>Chat {idx + 1}</h2>", unsafe_allow_html=True)
-            with st.expander(f"SHOW/HIDE", expanded=True):
+            with st.expander(f"SHOW/HIDE", expanded=True): # Drop down for visibility
                 st.markdown("### Chat Summary", unsafe_allow_html=True)  # Show chat summary
 
                 # Extract chat summary based on the current saved chat
